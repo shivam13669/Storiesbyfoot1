@@ -42,10 +42,6 @@ export default function AboutPage() {
                 Each expedition is carefully crafted to combine adventure, cultural connection, and comfort — thoughtfully designed routes, trusted local partners, safety-first operations, and seamless logistics. With over <strong>500 completed expeditions</strong> and <strong>10,000+ delighted travellers</strong> across three nations, our trips aim to transform travel into memorable, story-worthy experiences.
               </p>
 
-              <p className="text-slate-600 leading-relaxed">
-                Earlier, we operated as <strong>Planyortrip</strong>. We rebranded to <strong>StoriesByFoot</strong> to better reflect our mission — walking the road and living the story. The same team, values, and commitment to safety and authenticity remain; only the name evolved to match the spirit of our journeys.
-              </p>
-
               <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="p-4 bg-indigo-50 rounded-lg border border-indigo-100">
                   <h3 className="text-lg font-medium text-indigo-700">500+ Bike Trips</h3>
