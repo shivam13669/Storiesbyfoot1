@@ -31,6 +31,8 @@ export default function AboutPage() {
             </div>
           </header>
 
+          <p className="mt-6 border-l-2 pl-4 italic text-slate-600">Formerly known as <strong>PlanYourTrip</strong>, we rebranded to <strong>StoriesByFoot</strong> to reflect our deeper vision — transforming travel into stories that stay with you forever.</p>
+
           <section className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
             <article className="md:col-span-2 space-y-4">
               <h2 className="text-2xl font-semibold text-slate-800">Our Story</h2>
