@@ -1,11 +1,10 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { Card, CardContent } from "@/components/ui/card";
-import { Bike, Truck, Plane, Home, FileText, Users, Landmark, Shield } from "lucide-react";
+import { useState } from "react";
 
 const services = [
   {
-    icon: Bike,
+    id: 1,
     title: "Motorbike Expeditions",
     description:
       "Curated motorcycle journeys across remote passes and scenic backroads, supported by experienced crew and logistics.",
@@ -15,9 +14,10 @@ const services = [
       "Support vehicle with tools and spare parts",
       "Daily briefings with flexible rest stops",
     ],
+    img: "https://images.unsplash.com/photo-1762539609832-edc710faa692?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1974",
   },
   {
-    icon: Truck,
+    id: 2,
     title: "4x4 Adventure Tours",
     description:
       "Overland tours in well-equipped 4x4s, designed for challenging terrain and immersive outdoor routes.",
@@ -27,9 +27,10 @@ const services = [
       "Mechanical support on the trail",
       "Smaller groups for comfort and safety",
     ],
+    img: "https://images.unsplash.com/photo-1511300636408-a63a89df3482?auto=format&fit=crop&w=800&q=80",
   },
   {
-    icon: Plane,
+    id: 3,
     title: "Airport Pickups & Drops",
     description:
       "Seamless meet-and-greet transfers with flight tracking and luggage assistance so your trip begins and ends smoothly.",
@@ -39,9 +40,10 @@ const services = [
       "Luggage handling and door-to-door service",
       "24/7 coordination for arrivals and departures",
     ],
+    img: "https://images.unsplash.com/photo-1526779259212-5f93f9b2b9c2?auto=format&fit=crop&w=1200&q=80",
   },
   {
-    icon: Home,
+    id: 4,
     title: "Stay & Accommodation",
     description:
       "Comfortable, vetted stays selected to match each route—boutique hotels, mountain lodges, and homestays with local flavour.",
@@ -51,9 +53,10 @@ const services = [
       "Meals and breakfast choices where applicable",
       "Convenient locations matched to the itinerary",
     ],
+    img: "https://images.unsplash.com/photo-1501117716987-c8e3f3ecf8a8?auto=format&fit=crop&w=1200&q=80",
   },
   {
-    icon: FileText,
+    id: 5,
     title: "Permits & Travel Documentation",
     description:
       "End-to-end handling of regional permits, entry paperwork and on-trip compliance for restricted or high-altitude areas.",
@@ -63,9 +66,10 @@ const services = [
       "Pre-trip checks and route advisories",
       "On-trip permit coordination and support",
     ],
+    img: "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1200&q=80",
   },
   {
-    icon: Users,
+    id: 6,
     title: "Group Departures & Custom Itineraries",
     description:
       "Join scheduled departures or create a private, tailor-made route crafted to your dates, pace and interests.",
@@ -75,9 +79,10 @@ const services = [
       "Flexible dates and group sizing",
       "Theme-based and purpose-led journeys",
     ],
+    img: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=1200&q=80",
   },
   {
-    icon: Landmark,
+    id: 7,
     title: "Local Culture & Experiences",
     description:
       "Meaningful local interactions—from village visits and artisan workshops to community-led experiences and culinary trails.",
@@ -87,9 +92,10 @@ const services = [
       "Guided visits to heritage and artisan centres",
       "Community-led experiences promoting responsible tourism",
     ],
+    img: "https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?auto=format&fit=crop&w=1200&q=80",
   },
   {
-    icon: Shield,
+    id: 8,
     title: "Safety & Backup Support",
     description:
       "A safety-first approach with trained staff, medical kits, emergency protocols and a dedicated support line for every trip.",
@@ -99,77 +105,46 @@ const services = [
       "Real-time weather and route monitoring",
       "Dedicated operations and support team",
     ],
+    img: "https://images.unsplash.com/photo-1506368249639-73a05d6f6488?auto=format&fit=crop&w=1200&q=80",
   },
 ];
-
-import { useState } from "react";
 
 const ServicesPage = () => {
   const [selectedService, setSelectedService] = useState(null);
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-gray-50 py-16 px-6">
       <Navigation />
-      <main className="pt-24 pb-20">
-        <section className="container mx-auto px-4 text-center">
-          <div className="mx-auto max-w-3xl space-y-4">
-            <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary">
-              Our Services
-            </span>
-            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
-              Everything you need for unforgettable adventures
-            </h1>
-            <p className="text-lg text-muted-foreground">
-              From permits and planning to on-ground safety and support we handle the details so you can focus on the journey.
-            </p>
-          </div>
-        </section>
 
-        <section className="container mx-auto px-4 mt-10">
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((s, i) => {
-              const Icon = s.icon;
-              return (
-                <Card
-                  key={s.title}
-                  className="group h-full border border-border/60 bg-card/90 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-primary/60"
-                  style={{ animationDelay: `${i * 0.05}s` }}
+      <main className="pt-8 pb-16">
+        <h1 className="text-4xl font-bold text-center mb-12 text-gray-800">Our Services</h1>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto">
+          {services.map((service) => (
+            <div key={service.id} className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all p-5">
+              <img
+                src={service.img}
+                alt={service.title}
+                className="rounded-xl w-full h-52 object-cover"
+              />
+              <h2 className="text-xl font-semibold mt-4 text-gray-800">{service.title}</h2>
+              <p className="text-gray-600 mt-2 text-sm">{service.description}</p>
+
+              <div className="mt-4">
+                <button
+                  onClick={() => setSelectedService(service)}
+                  className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700"
                 >
-                  <CardContent className="p-6">
-                    <div className="mb-4 flex items-center gap-3">
-                      <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
-                        <Icon className="h-5 w-5" />
-                      </span>
-                      <h3 className="text-lg font-semibold leading-snug">{s.title}</h3>
-                    </div>
-                    <p className="text-sm text-muted-foreground">{s.description}</p>
-                    <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-                      {s.points.map((p) => (
-                        <li key={p} className="flex items-start gap-2">
-                          <span className="mt-1 h-1.5 w-1.5 rounded-full bg-primary"></span>
-                          <span>{p}</span>
-                        </li>
-                      ))}
-                    </ul>
-
-                    <div className="mt-4">
-                      <button
-                        onClick={() => setSelectedService(s)}
-                        className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-primary text-white text-sm hover:bg-primary/90"
-                      >
-                        Preview
-                      </button>
-                    </div>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
-        </section>
+                  Preview
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
 
         {selectedService && (
-          <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
-            <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full p-6 relative">
+          <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50">
+            <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 relative animate-fade-in">
               <button
                 onClick={() => setSelectedService(null)}
                 className="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-2xl"
@@ -177,33 +152,37 @@ const ServicesPage = () => {
                 ✕
               </button>
 
-              <div className="mb-4">
-                <h2 className="text-2xl font-semibold mb-2">{selectedService.title}</h2>
-                <p className="text-sm text-muted-foreground mb-4">{selectedService.description}</p>
+              {selectedService.img && (
+                <img
+                  src={selectedService.img}
+                  alt={selectedService.title}
+                  className="rounded-xl w-full h-60 object-cover mb-4"
+                />
+              )}
 
-                <ul className="space-y-2 text-sm">
-                  {selectedService.points.map((p) => (
-                    <li key={p} className="flex items-start gap-2">
-                      <span className="mt-1 h-1.5 w-1.5 rounded-full bg-primary"></span>
-                      <span>{p}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <h2 className="text-2xl font-semibold text-gray-800 mb-2">{selectedService.title}</h2>
+              <p className="text-gray-600 text-sm leading-relaxed mb-4">{selectedService.description}</p>
 
-              <div className="mt-6">
-                <button
-                  onClick={() => setSelectedService(null)}
-                  className="w-full bg-primary text-white py-2 rounded-lg"
-                >
-                  Close Preview
-                </button>
-              </div>
+              <ul className="space-y-2 text-sm mb-4">
+                {selectedService.points.map((p) => (
+                  <li key={p} className="flex items-start gap-2">
+                    <span className="mt-1 h-1.5 w-1.5 rounded-full bg-blue-600"></span>
+                    <span>{p}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <button
+                onClick={() => setSelectedService(null)}
+                className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
+              >
+                Close Preview
+              </button>
             </div>
           </div>
         )}
-
       </main>
+
       <Footer />
     </div>
   );
