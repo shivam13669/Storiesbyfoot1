@@ -35,6 +35,21 @@ const COUNTRIES = [
 const Contact = () => {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
+  const [selectedCountry, setSelectedCountry] = useState(COUNTRIES[0]);
+  const [countrySearch, setCountrySearch] = useState("");
+  const [openCountryPopover, setOpenCountryPopover] = useState(false);
+
+  const filteredCountries = COUNTRIES.filter(country =>
+    country.name.toLowerCase().includes(countrySearch.toLowerCase()) ||
+    country.dial.includes(countrySearch) ||
+    country.code.toLowerCase().includes(countrySearch.toLowerCase())
+  );
+
+  const handleCountrySelect = (country: typeof COUNTRIES[0]) => {
+    setSelectedCountry(country);
+    setOpenCountryPopover(false);
+    setCountrySearch("");
+  };
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
