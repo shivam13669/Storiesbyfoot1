@@ -60,7 +60,7 @@ export default function AboutPage() {
               <h3 className="text-lg font-semibold text-slate-800">Quick Facts</h3>
               <ul className="mt-3 text-slate-600 space-y-2">
                 <li>Founded: <strong>October 2020</strong></li>
-                <li>Formely: PlanYorTrip</li>
+                <li>Formerly: <strong>PlanYorTrip</strong></li>
                 <li>Speciality: Motorbike & 4x4 expeditions</li>
                 <li>Regions: Ladakh, Zanskar, Meghalaya, Tawang, Bhutan, Upper Mustang</li>
                 <li>Trips: 500+ completed expeditions</li>
