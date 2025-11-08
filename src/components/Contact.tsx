@@ -1,5 +1,5 @@
 import { Mail, Phone } from "lucide-react";
-import { Mail, Phone } from "lucide-react";
+import { Mail as MailIcon, Phone } from "lucide-react";
 import WhatsAppIcon from "./icons/WhatsAppIcon";
 import { Card, CardContent } from "./ui/card";
 import { Input } from "./ui/input";
