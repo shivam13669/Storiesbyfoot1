@@ -1,4 +1,4 @@
-import { Mail, Phone, Facebook, Instagram, Youtube } from "lucide-react";
+import { Mail as MailIcon, Phone as PhoneIcon, Facebook, Instagram, Youtube } from "lucide-react";
 import WhatsAppIcon from "./icons/WhatsAppIcon";
 import { Button } from "./ui/button";
 
@@ -73,22 +73,22 @@ const Footer = () => {
               <h3 className="text-lg font-semibold mb-6">Get In Touch</h3>
               <div className="text-white/80">
                 <span className="inline-flex items-center mr-4">
-                  <Phone className="h-5 w-5 text-adventure-gold flex-shrink-0 mr-2" />
+                  <PhoneIcon className="h-5 w-5 text-adventure-gold flex-shrink-0 mr-2" />
                   <a href="tel:+916205129118" className="hover:underline" aria-label="Call +916205129118">+916205129118</a>
                 </span>
 
                 <span className="inline-flex items-center mr-4">
-                  <Phone className="h-5 w-5 text-adventure-gold flex-shrink-0 mr-2" />
+                  <PhoneIcon className="h-5 w-5 text-adventure-gold flex-shrink-0 mr-2" />
                   <a href="tel:+916283620764" className="hover:underline" aria-label="Call +916283620764">+916283620764</a>
                 </span>
 
                 <span className="inline-flex items-center mr-4">
-                  <Mail className="h-5 w-5 text-adventure-gold flex-shrink-0 mr-2" />
+                  <MailIcon className="h-5 w-5 text-adventure-gold flex-shrink-0 mr-2" />
                   <a href="mailto:contact@storiesbyfoot.com" className="hover:underline" aria-label="Email contact@storiesbyfoot.com">contact@storiesbyfoot.com</a>
                 </span>
 
                 <span className="inline-flex items-center">
-                  <Mail className="h-5 w-5 text-adventure-gold flex-shrink-0 mr-2" />
+                  <MailIcon className="h-5 w-5 text-adventure-gold flex-shrink-0 mr-2" />
                   <a href="mailto:storiesbyfoot@gmail.com" className="hover:underline" aria-label="Email storiesbyfoot@gmail.com">storiesbyfoot@gmail.com</a>
                 </span>
               </div>

@@ -1,4 +1,4 @@
-import { Mail, Phone } from "lucide-react";
+import { Mail as MailIcon, Phone as PhoneIcon } from "lucide-react";
 import WhatsAppIcon from "./icons/WhatsAppIcon";
 import { Card, CardContent } from "./ui/card";
 import { Input } from "./ui/input";
@@ -30,10 +30,18 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-20 bg-muted/30 scroll-mt-24">
+    <section id="contact" className="pt-24 py-20 relative overflow-hidden bg-gradient-to-br from-sky-50 via-white to-emerald-50 scroll-mt-24">
+      <div className="absolute -top-24 -left-24 w-72 h-72 md:w-96 md:h-96 bg-gradient-to-br from-sky-200 to-teal-300 rounded-full opacity-30 filter blur-3xl transform rotate-45 -z-10 pointer-events-none"></div>
+      <div className="absolute -bottom-28 -right-28 w-80 h-80 md:w-96 md:h-96 bg-gradient-to-br from-emerald-200 to-sky-200 rounded-full opacity-25 filter blur-3xl transform rotate-12 -z-10 pointer-events-none"></div>
+
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Contact Us</h2>
+          <h2 className="relative text-center mb-4">
+            <span className="text-4xl md:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-sky-600 via-teal-500 to-emerald-500 bg-clip-text text-transparent drop-shadow-sm">
+              Contact Us
+            </span>
+            <span className="block mx-auto mt-3 h-1 w-28 rounded-full bg-gradient-to-r from-sky-400 via-teal-400 to-emerald-300"></span>
+          </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Have questions or want to plan your next adventure? Send us a message and we’ll reach out.
           </p>
@@ -68,41 +76,49 @@ const Contact = () => {
             </CardContent>
           </Card>
 
-          <div className="rounded-2xl p-8 bg-gradient-to-br from-primary/10 via-adventure-forest/10 to-transparent border border-border">
-            <h3 className="text-2xl font-semibold mb-4">Reach us directly</h3>
-            <p className="text-muted-foreground mb-8">
-              Prefer WhatsApp, call, or email? Get in touch using the details below.
-            </p>
-            <div className="text-foreground space-y-3">
-              <span className="flex items-center">
-                <Phone className="h-5 w-5 text-primary mr-2" />
-                <a href="tel:+916205129118" className="hover:underline">+916205129118</a>
-              </span>
-
-              <span className="flex items-center">
-                <Phone className="h-5 w-5 text-primary mr-2" />
-                <a href="tel:+916283620764" className="hover:underline">+916283620764</a>
-              </span>
-
-              <span className="flex items-center">
-                <Mail className="h-5 w-5 text-primary mr-2" />
-                <a href="mailto:contact@storiesbyfoot.com" className="hover:underline">contact@storiesbyfoot.com</a>
-              </span>
-
-              <span className="flex items-center">
-                <Mail className="h-5 w-5 text-primary mr-2" />
-                <a href="mailto:storiesbyfoot@gmail.com" className="hover:underline">storiesbyfoot@gmail.com</a>
-              </span>
+          <div className="rounded-2xl p-6 md:p-8 bg-white/5 backdrop-blur-md border border-border shadow-sm">
+            <div className="mb-4">
+              <h3 className="text-2xl font-extrabold bg-gradient-to-r from-sky-600 via-teal-500 to-emerald-500 bg-clip-text text-transparent">Reach us directly</h3>
+              <p className="text-muted-foreground mt-2">Prefer WhatsApp, call, or email? Get in touch using the details below.</p>
             </div>
-            <div className="mt-8 text-sm text-muted-foreground">
-              Our team typically replies within a few hours.
+
+            <div className="space-y-3">
+              <a href="tel:+916205129118" className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-r from-white/5 to-white/3 border border-white/5 hover:shadow-lg transition">
+                <PhoneIcon className="h-5 w-5 text-primary" />
+                <span className="font-medium">+91 62051 29118</span>
+                <span className="ml-auto text-sm text-muted-foreground">Call</span>
+              </a>
+
+              <a href="tel:+916283620764" className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-r from-white/5 to-white/3 border border-white/5 hover:shadow-lg transition">
+                <PhoneIcon className="h-5 w-5 text-primary" />
+                <span className="font-medium">+91 62836 20764</span>
+                <span className="ml-auto text-sm text-muted-foreground">Call</span>
+              </a>
+
+              <a href="https://wa.me/916205129118" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-3 rounded-lg bg-emerald-50/30 hover:bg-emerald-50/40 transition border border-emerald-200/10">
+                <WhatsAppIcon className="h-5 w-5 text-green-500" />
+                <span className="font-medium">WhatsApp Support</span>
+                <span className="ml-auto text-sm text-muted-foreground">Replies fast</span>
+              </a>
+
+              <a href="mailto:contact@storiesbyfoot.com" className="flex items-start gap-3 p-3 rounded-lg bg-gradient-to-r from-white/5 to-white/3 border border-white/5 hover:shadow-lg transition">
+                <MailIcon className="h-5 w-5 text-primary mt-1" />
+                <div>
+                  <div className="font-medium">contact@storiesbyfoot.com</div>
+                  <div className="text-sm text-muted-foreground">General inquiries</div>
+                </div>
+              </a>
+
+              <a href="mailto:storiesbyfoot@gmail.com" className="flex items-start gap-3 p-3 rounded-lg bg-gradient-to-r from-white/5 to-white/3 border border-white/5 hover:shadow-lg transition">
+                <MailIcon className="h-5 w-5 text-primary mt-1" />
+                <div>
+                  <div className="font-medium">storiesbyfoot@gmail.com</div>
+                  <div className="text-sm text-muted-foreground">Support</div>
+                </div>
+              </a>
             </div>
-            <div className="mt-6 pt-6 border-t border-border">
-              <span className="flex items-center">
-                <WhatsAppIcon className="h-5 w-5 text-primary mr-2" />
-                <a href="https://wa.me/916205129118" target="_blank" rel="noopener noreferrer" className="hover:underline font-medium">WhatsApp Support</a>
-              </span>
-            </div>
+
+            <div className="mt-6 text-sm text-muted-foreground">Our team typically replies within a few hours.</div>
           </div>
         </div>
       </div>

@@ -28,7 +28,7 @@ import {
   Clock,
   Compass,
   MapPin,
-  Phone,
+  Phone as PhoneIcon,
   ShieldCheck,
   Star,
   Users,
@@ -185,7 +185,7 @@ const DestinationDetailPage = () => {
                       <span>24/7 on-ground support team with medical briefing on arrival</span>
                     </div>
                     <div className="flex gap-3">
-                      <Phone className="h-5 w-5 text-primary" />
+                      <PhoneIcon className="h-5 w-5 text-primary" />
                       <span>Dedicated trip designer responds within 12 working hours</span>
                     </div>
                   </div>

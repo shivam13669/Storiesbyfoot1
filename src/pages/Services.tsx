@@ -113,11 +113,20 @@ const ServicesPage = () => {
   const [selectedService, setSelectedService] = useState(null);
 
   return (
-    <div className="min-h-screen bg-gray-50 py-16 px-6">
+    <>
+      <div className="min-h-screen relative overflow-hidden py-16 px-6 bg-gradient-to-br from-sky-50 via-white to-emerald-50">
       <Navigation />
 
+      <div className="absolute -top-24 -left-24 w-72 h-72 md:w-96 md:h-96 bg-gradient-to-br from-sky-200 to-teal-300 rounded-full opacity-30 filter blur-3xl transform rotate-45 -z-10 pointer-events-none"></div>
+      <div className="absolute -bottom-28 -right-28 w-80 h-80 md:w-96 md:h-96 bg-gradient-to-br from-emerald-200 to-sky-200 rounded-full opacity-25 filter blur-3xl transform rotate-12 -z-10 pointer-events-none"></div>
+
       <main className="pt-8 pb-16">
-        <h1 className="text-4xl font-bold text-center mb-12 text-gray-800">Our Services</h1>
+        <h1 className="relative text-center mb-12">
+          <span className="text-4xl md:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-sky-600 via-teal-500 to-emerald-500 bg-clip-text text-transparent drop-shadow-sm">
+            Our Services
+          </span>
+          <span className="block mx-auto mt-3 h-1 w-28 rounded-full bg-gradient-to-r from-sky-400 via-teal-400 to-emerald-300"></span>
+        </h1>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto">
           {services.map((service) => (
@@ -183,8 +192,10 @@ const ServicesPage = () => {
         )}
       </main>
 
-      <Footer />
     </div>
+
+    <Footer />
+  </>
   );
 };
 
