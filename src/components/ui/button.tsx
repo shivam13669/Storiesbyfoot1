@@ -21,6 +21,7 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         hero: "gradient-adventure text-white font-semibold shadow-glow hover:shadow-xl hover:scale-105 backdrop-blur-sm border border-white/20",
         adventure: "gradient-nature text-white font-semibold shadow-adventure hover:shadow-xl hover:scale-105",
+        contact: "bg-gradient-to-r from-sky-600 via-teal-500 to-emerald-500 text-white font-semibold shadow-glow hover:shadow-xl hover:scale-105",
         glass: "bg-white/10 text-white border border-white/20 backdrop-blur-md hover:bg-white/20 hover:border-white/40 shadow-lg",
       },
       size: {
