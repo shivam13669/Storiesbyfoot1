@@ -103,7 +103,7 @@ const Contact = () => {
               </a>
 
               <a href="mailto:contact@storiesbyfoot.com" className="flex items-start gap-3 p-3 rounded-lg bg-gradient-to-r from-white/5 to-white/3 border border-white/5 hover:shadow-lg transition">
-                <Mail className="h-5 w-5 text-primary mt-1" />
+                <MailIcon className="h-5 w-5 text-primary mt-1" />
                 <div>
                   <div className="font-medium">contact@storiesbyfoot.com</div>
                   <div className="text-sm text-muted-foreground">General inquiries</div>
@@ -111,7 +111,7 @@ const Contact = () => {
               </a>
 
               <a href="mailto:storiesbyfoot@gmail.com" className="flex items-start gap-3 p-3 rounded-lg bg-gradient-to-r from-white/5 to-white/3 border border-white/5 hover:shadow-lg transition">
-                <Mail className="h-5 w-5 text-primary mt-1" />
+                <MailIcon className="h-5 w-5 text-primary mt-1" />
                 <div>
                   <div className="font-medium">storiesbyfoot@gmail.com</div>
                   <div className="text-sm text-muted-foreground">Support</div>
