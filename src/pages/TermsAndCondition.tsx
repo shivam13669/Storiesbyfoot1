@@ -156,73 +156,32 @@ export default function TermsAndConditionPage() {
 
             <section className="space-y-4">
               <h2 className="text-2xl font-semibold text-slate-800">5. User Responsibilities</h2>
-              <div className="space-y-3 text-slate-700">
-                <div>
-                  <h3 className="font-semibold mb-1">5.1</h3>
-                  <p className="leading-relaxed">You agree to provide accurate, current, and complete information when creating an account or making a booking.</p>
-                </div>
-                <div>
-                  <h3 className="font-semibold mb-1">5.2</h3>
-                  <p className="leading-relaxed">You are responsible for maintaining the confidentiality of your account and login credentials.</p>
-                </div>
-                <div>
-                  <h3 className="font-semibold mb-1">5.3</h3>
-                  <p className="leading-relaxed mb-2">You agree not to misuse our Website for:</p>
-                  <ul className="space-y-1 list-disc list-inside ml-4">
-                    <li>Illegal, fraudulent, or misleading activities;</li>
-                    <li>Uploading harmful code, malware, or spam;</li>
-                    <li>Copying, scraping, or redistributing Website content without authorization.</li>
-                  </ul>
-                </div>
-                <div>
-                  <h3 className="font-semibold mb-1">5.4</h3>
-                  <p className="leading-relaxed">StoriesByFoot reserves the right to suspend or terminate accounts found violating these Terms or engaging in misuse.</p>
-                </div>
-              </div>
+              <ul className="space-y-2 text-slate-700 leading-relaxed list-disc list-inside">
+                <li>You agree to provide accurate, current, and complete information when creating an account or making a booking.</li>
+                <li>You are responsible for maintaining the confidentiality of your account and login credentials.</li>
+                <li>You agree not to misuse our Website for illegal, fraudulent, or misleading activities; uploading harmful code, malware, or spam; or copying, scraping, or redistributing Website content without authorization.</li>
+                <li>StoriesByFoot reserves the right to suspend or terminate accounts found violating these Terms or engaging in misuse.</li>
+              </ul>
             </section>
 
             <section className="space-y-4">
               <h2 className="text-2xl font-semibold text-slate-800">6. Travel Documents and Compliance</h2>
-              <div className="space-y-3 text-slate-700">
-                <div>
-                  <h3 className="font-semibold mb-1">6.1</h3>
-                  <p className="leading-relaxed">You are solely responsible for obtaining and carrying valid travel documents, such as passports, visas, identification, and insurance.</p>
-                </div>
-                <div>
-                  <h3 className="font-semibold mb-1">6.2</h3>
-                  <p className="leading-relaxed">StoriesByFoot is not responsible for losses caused by denied travel or entry due to missing or invalid documents.</p>
-                </div>
-                <div>
-                  <h3 className="font-semibold mb-1">6.3</h3>
-                  <p className="leading-relaxed">You must comply with all applicable local laws, customs regulations, and travel advisories of your destination.</p>
-                </div>
-                <div>
-                  <h3 className="font-semibold mb-1">6.4</h3>
-                  <p className="leading-relaxed">Certain experiences may require good physical fitness. You are responsible for ensuring your health condition is suitable for participation.</p>
-                </div>
-              </div>
+              <ul className="space-y-2 text-slate-700 leading-relaxed list-disc list-inside">
+                <li>You are solely responsible for obtaining and carrying valid travel documents, such as passports, visas, identification, and insurance.</li>
+                <li>StoriesByFoot is not responsible for losses caused by denied travel or entry due to missing or invalid documents.</li>
+                <li>You must comply with all applicable local laws, customs regulations, and travel advisories of your destination.</li>
+                <li>Certain experiences may require good physical fitness. You are responsible for ensuring your health condition is suitable for participation.</li>
+              </ul>
             </section>
 
             <section className="space-y-4">
               <h2 className="text-2xl font-semibold text-slate-800">7. Third-Party Services</h2>
-              <div className="space-y-3 text-slate-700">
-                <div>
-                  <h3 className="font-semibold mb-1">7.1</h3>
-                  <p className="leading-relaxed">StoriesByFoot may include links, offers, or bookings from third-party providers such as airlines, hotels, and tour operators.</p>
-                </div>
-                <div>
-                  <h3 className="font-semibold mb-1">7.2</h3>
-                  <p className="leading-relaxed">We act only as an intermediary and are not responsible for the quality, safety, reliability, or performance of these third-party services.</p>
-                </div>
-                <div>
-                  <h3 className="font-semibold mb-1">7.3</h3>
-                  <p className="leading-relaxed">Each booking is governed by the respective Vendor's Terms and Conditions. Please review them carefully before proceeding.</p>
-                </div>
-                <div>
-                  <h3 className="font-semibold mb-1">7.4</h3>
-                  <p className="leading-relaxed">Any issues, delays, or service failures should be reported directly to the Vendor. StoriesByFoot will provide assistance but does not assume liability.</p>
-                </div>
-              </div>
+              <ul className="space-y-2 text-slate-700 leading-relaxed list-disc list-inside">
+                <li>StoriesByFoot may include links, offers, or bookings from third-party providers such as airlines, hotels, and tour operators.</li>
+                <li>We act only as an intermediary and are not responsible for the quality, safety, reliability, or performance of these third-party services.</li>
+                <li>Each booking is governed by the respective Vendor's Terms and Conditions. Please review them carefully before proceeding.</li>
+                <li>Any issues, delays, or service failures should be reported directly to the Vendor. StoriesByFoot will provide assistance but does not assume liability.</li>
+              </ul>
             </section>
 
             <section className="space-y-4">
@@ -235,24 +194,12 @@ export default function TermsAndConditionPage() {
 
             <section className="space-y-4">
               <h2 className="text-2xl font-semibold text-slate-800">9. Intellectual Property</h2>
-              <div className="space-y-3 text-slate-700">
-                <div>
-                  <h3 className="font-semibold mb-1">9.1</h3>
-                  <p className="leading-relaxed">All content on this Website including text, images, graphics, videos, logos, and software is the exclusive property of StoriesByFoot or its content partners and is protected under applicable copyright and trademark laws.</p>
-                </div>
-                <div>
-                  <h3 className="font-semibold mb-1">9.2</h3>
-                  <p className="leading-relaxed">You may not reproduce, distribute, modify, or republish any content without prior written consent from StoriesByFoot.</p>
-                </div>
-                <div>
-                  <h3 className="font-semibold mb-1">9.3</h3>
-                  <p className="leading-relaxed">Unauthorized use of our intellectual property may result in legal action.</p>
-                </div>
-                <div>
-                  <h3 className="font-semibold mb-1">9.4</h3>
-                  <p className="leading-relaxed">User-generated content (such as reviews, images, or stories) submitted to the platform grants StoriesByFoot a non-exclusive, royalty-free license to use such content for promotional or editorial purposes.</p>
-                </div>
-              </div>
+              <ul className="space-y-2 text-slate-700 leading-relaxed list-disc list-inside">
+                <li>All content on this Website including text, images, graphics, videos, logos, and software is the exclusive property of StoriesByFoot or its content partners and is protected under applicable copyright and trademark laws.</li>
+                <li>You may not reproduce, distribute, modify, or republish any content without prior written consent from StoriesByFoot.</li>
+                <li>Unauthorized use of our intellectual property may result in legal action.</li>
+                <li>User-generated content (such as reviews, images, or stories) submitted to the platform grants StoriesByFoot a non-exclusive, royalty-free license to use such content for promotional or editorial purposes.</li>
+              </ul>
             </section>
 
             <section className="space-y-4">
