@@ -128,8 +128,8 @@ const DestinationDetailPage = () => {
                 </div>
               </div>
 
-              <aside className="lg:sticky lg:top-24 flex flex-col">
-                <div className="rounded-2xl bg-white p-8 shadow-xl h-full flex flex-col">
+              <aside className="lg:sticky lg:top-24">
+                <div className="rounded-2xl bg-white p-8 shadow-xl">
                   <p className="text-sm font-semibold text-muted-foreground">Starting from</p>
                   <div className="mt-2 flex items-baseline gap-3">
                     <span className="text-4xl font-bold text-primary">
