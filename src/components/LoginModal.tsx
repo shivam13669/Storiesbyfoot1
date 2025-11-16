@@ -120,7 +120,9 @@ export const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
             <img
               src="https://images.unsplash.com/photo-1762700048621-76849cb2c75e?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               alt="Adventure experience"
-              className="w-full h-full object-cover"
+              className={`w-full h-full object-cover transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+              onLoad={() => setImageLoaded(true)}
+              loading="eager"
             />
             {/* Premium Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/20 flex flex-col justify-between p-6">
