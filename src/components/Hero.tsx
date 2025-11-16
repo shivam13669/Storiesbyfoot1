@@ -41,32 +41,34 @@ const Hero: React.FC = () => {
           <div
             key={img.src}
             aria-hidden={i !== index}
-            className={`absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-1000`} 
+            className={`absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-1000`}
             style={{
               backgroundImage: `url(${img.src})`,
               opacity: i === index ? 1 : 0,
               transitionDuration: `${TRANSITION_MS}ms`,
             }}
           >
-            {/* gradient overlay on each slide to keep text readable */}
-            <div className="absolute inset-0 bg-gradient-to-r from-adventure-forest/80 via-primary/60 to-transparent"></div>
+            {/* Dark overlay for text readability */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/50"></div>
           </div>
         ))}
       </div>
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 text-center">
-        <div className="max-w-4xl mx-auto animate-fade-in">
-          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-            Discover Your Next
-            <span className="block gradient-adventure bg-clip-text text-transparent">Adventure</span>
-          </h1>
+        <div className="max-w-3xl mx-auto animate-fade-in space-y-8">
+          <div className="space-y-6">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight">
+              Discover Your Next
+              <span className="block gradient-adventure bg-clip-text text-transparent pt-2">Adventure</span>
+            </h1>
 
-          <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed">
-            Embark on unforgettable journeys through breathtaking landscapes. From mountain expeditions to serene forest trails, your adventure awaits.
-          </p>
+            <p className="text-lg md:text-xl text-white/95 max-w-2xl mx-auto leading-relaxed font-light">
+              Discover breathtaking landscapes, thrilling expeditions, and unforgettable journeys designed to inspire your spirit of exploration and adventure.
+            </p>
+          </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-slide-up">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4 animate-slide-up">
             <Button asChild variant="hero" size="xl" className="group">
               <Link to="/destinations" className="inline-flex items-center">
                 Start Your Journey
@@ -81,18 +83,18 @@ const Hero: React.FC = () => {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-3 gap-8 mt-16 max-w-md mx-auto">
+          <div className="grid grid-cols-3 gap-8 pt-12 max-w-md mx-auto">
             <div className="text-center animate-float">
-              <div className="text-3xl font-bold text-white">500+</div>
-              <div className="text-white/80 text-sm">Adventures</div>
+              <div className="text-3xl md:text-4xl font-bold text-white">500+</div>
+              <div className="text-white/70 text-xs md:text-sm pt-2">Adventures</div>
             </div>
             <div className="text-center animate-float" style={{ animationDelay: "0.5s" }}>
-              <div className="text-3xl font-bold text-white">10k+</div>
-              <div className="text-white/80 text-sm">Happy Travelers</div>
+              <div className="text-3xl md:text-4xl font-bold text-white">10k+</div>
+              <div className="text-white/70 text-xs md:text-sm pt-2">Happy Travelers</div>
             </div>
             <div className="text-center animate-float" style={{ animationDelay: "1s" }}>
-              <div className="text-3xl font-bold text-white">3+</div>
-              <div className="text-white/80 text-sm">Countries</div>
+              <div className="text-3xl md:text-4xl font-bold text-white">3+</div>
+              <div className="text-white/70 text-xs md:text-sm pt-2">Countries</div>
             </div>
           </div>
         </div>
