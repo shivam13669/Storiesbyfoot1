@@ -556,7 +556,7 @@ export const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
                     </div>
 
                     {/* Terms Checkbox */}
-                    <label className="flex items-start gap-2 cursor-pointer group mt-3">
+                    <label className="flex items-start gap-2 cursor-pointer group mt-3" onMouseDown={() => setIsPasswordFieldFocused(false)}>
                       <input
                         type="checkbox"
                         checked={agreeTerms}
@@ -566,11 +566,11 @@ export const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
                       />
                       <span className="text-sm text-gray-700 group-hover:text-gray-900 transition-colors">
                         I agree to the{" "}
-                        <a href="/terms-and-condition" className="text-orange-600 hover:text-orange-700 font-semibold">
+                        <a href="/terms-and-condition" className="text-orange-600 hover:text-orange-700 font-semibold" onMouseDown={() => setIsPasswordFieldFocused(false)}>
                           Terms & Conditions
                         </a>
                         {" "}and{" "}
-                        <a href="/privacy-policy" className="text-orange-600 hover:text-orange-700 font-semibold">
+                        <a href="/privacy-policy" className="text-orange-600 hover:text-orange-700 font-semibold" onMouseDown={() => setIsPasswordFieldFocused(false)}>
                           Privacy Policy
                         </a>
                       </span>
