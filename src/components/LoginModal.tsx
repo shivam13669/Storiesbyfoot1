@@ -458,8 +458,6 @@ export const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
                           placeholder="••••••••"
                           value={signupPassword}
                           onChange={(e) => setSignupPassword(e.target.value)}
-                          onFocus={() => setIsPasswordFieldFocused(true)}
-                          onBlur={() => setIsPasswordFieldFocused(false)}
                           className="w-full pl-11 pr-12 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 bg-gray-50/50 transition-all"
                           required
                         />
