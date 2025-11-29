@@ -66,6 +66,7 @@ export const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
   const [openCountryPopover, setOpenCountryPopover] = useState(false);
   const [agreeTerms, setAgreeTerms] = useState(false);
   const [activeTab, setActiveTab] = useState<'login' | 'signup'>('login');
+  const [isPasswordFieldFocused, setIsPasswordFieldFocused] = useState(false);
 
   const filteredCountries = COUNTRIES.filter(country =>
     country.name.toLowerCase().includes(countrySearch.toLowerCase()) ||
@@ -457,6 +458,8 @@ export const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
                           placeholder="••••••••"
                           value={signupPassword}
                           onChange={(e) => setSignupPassword(e.target.value)}
+                          onFocus={() => setIsPasswordFieldFocused(true)}
+                          onBlur={() => setIsPasswordFieldFocused(false)}
                           className="w-full pl-11 pr-12 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 bg-gray-50/50 transition-all"
                           required
                         />
@@ -472,9 +475,9 @@ export const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
                           )}
                         </button>
                       </div>
-                      
+
                       {/* Password Requirements */}
-                      {signupPassword && (
+                      {signupPassword && isPasswordFieldFocused && (
                         <div className="mt-3 p-3 bg-gray-50 rounded-lg space-y-2">
                           <p className="text-xs font-semibold text-gray-900">Password Requirements:</p>
                           <div className="space-y-1.5 text-xs">
