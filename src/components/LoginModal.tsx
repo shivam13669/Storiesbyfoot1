@@ -403,14 +403,22 @@ export const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
                       <div className="relative group" onMouseDown={() => setIsPasswordFieldFocused(false)}>
                         <Mail className="absolute left-3.5 top-3.5 h-5 w-5 text-gray-400 group-focus-within:text-orange-500 transition-colors" />
                         <Input
-                          type="email"
+                          type="text"
                           placeholder="you@example.com"
                           value={signupEmail}
-                          onChange={(e) => setSignupEmail(e.target.value)}
-                          className="w-full pl-11 pr-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 bg-gray-50/50 transition-all"
+                          onChange={(e) => {
+                            setSignupEmail(e.target.value);
+                            setSignupEmailError("");
+                          }}
+                          className={`w-full pl-11 pr-4 py-2.5 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500/20 bg-gray-50/50 transition-all ${
+                            signupEmailError ? 'border-red-400 focus:border-red-500 focus:ring-red-500/20' : 'border-gray-200 focus:border-orange-500'
+                          }`}
                           required
                         />
                       </div>
+                      {signupEmailError && (
+                        <p className="text-xs text-red-500 font-medium">{signupEmailError}</p>
+                      )}
                     </div>
 
                     {/* Mobile Number with Country Code */}
