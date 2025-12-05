@@ -485,12 +485,20 @@ export const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
                             type="tel"
                             placeholder="9876543210"
                             value={mobileNumber}
-                            onChange={(e) => setMobileNumber(e.target.value.replace(/\D/g, ''))}
-                            className="w-full pl-11 pr-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 bg-gray-50/50 transition-all"
+                            onChange={(e) => {
+                              setMobileNumber(e.target.value.replace(/\D/g, ''));
+                              setMobileNumberError("");
+                            }}
+                            className={`w-full pl-11 pr-4 py-2.5 border rounded-lg focus:outline-none focus:ring-2 bg-gray-50/50 transition-all ${
+                              mobileNumberError ? 'border-red-400 focus:border-red-500 focus:ring-red-500/20' : 'border-gray-200 focus:border-orange-500 focus:ring-orange-500/20'
+                            }`}
                             required
                           />
                         </div>
                       </div>
+                      {mobileNumberError && (
+                        <p className="text-xs text-red-500 font-medium">{mobileNumberError}</p>
+                      )}
                     </div>
 
                     {/* Password Field */}
