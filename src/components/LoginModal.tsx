@@ -518,7 +518,10 @@ export const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
                             placeholder="9876543210"
                             value={mobileNumber}
                             onChange={(e) => {
-                              setMobileNumber(e.target.value.replace(/\D/g, ''));
+                              const digitsOnly = e.target.value.replace(/\D/g, '');
+                              const maxDigits = COUNTRY_DIGIT_REQUIREMENTS[selectedCountry.code]?.max || 15;
+                              const truncated = digitsOnly.slice(0, maxDigits);
+                              setMobileNumber(truncated);
                               setMobileNumberError("");
                             }}
                             className={`w-full pl-11 pr-4 py-2.5 border rounded-lg focus:outline-none focus:ring-2 bg-gray-50/50 transition-all ${
