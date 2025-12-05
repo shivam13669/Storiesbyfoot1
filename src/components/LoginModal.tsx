@@ -43,6 +43,15 @@ const validateEmail = (email: string) => {
   return emailRegex.test(email);
 };
 
+const validateInternationalMobile = (mobile: string, countryCode: string): boolean => {
+  try {
+    const phoneNumber = parsePhoneNumberFromString(mobile, countryCode as any);
+    return phoneNumber ? phoneNumber.isValid() : false;
+  } catch {
+    return false;
+  }
+};
+
 const validatePassword = (password: string) => {
   const requirements = {
     length: password.length >= 6,
