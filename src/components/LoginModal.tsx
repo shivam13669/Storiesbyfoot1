@@ -96,6 +96,10 @@ export const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
 
   const handleSignup = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!validateEmail(signupEmail)) {
+      setSignupEmailError("Please enter a valid email address (e.g., you@example.com)");
+      return;
+    }
     if (!isPasswordValid) {
       alert("Password does not meet requirements");
       return;
