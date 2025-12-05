@@ -87,6 +87,10 @@ export const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!validateEmail(email)) {
+      setEmailError("Please enter a valid email address (e.g., you@example.com)");
+      return;
+    }
     console.log("Login:", { email, password });
   };
 
