@@ -110,6 +110,16 @@ export const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
     setCountrySearch("");
   };
 
+  const handleForgotPassword = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Forgot password request for:", forgotEmail);
+    // Here you would send a password reset email
+    // For now, we'll just show a success message
+    alert("Password reset link has been sent to " + forgotEmail);
+    setForgotEmail("");
+    setShowForgotPassword(false);
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-5xl bg-white border-0 p-0 overflow-hidden shadow-2xl max-h-[85vh] rounded-lg left-1/2 top-[4rem] translate-x-[-50%] translate-y-0" style={{width: '85vw', maxWidth: '1000px'}}>
