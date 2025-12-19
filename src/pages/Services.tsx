@@ -15,7 +15,7 @@ const services = [
       "Support vehicle with tools and spare parts",
       "Daily briefings with flexible rest stops",
     ],
-    img: "https://images.unsplash.com/photo-1762539609832-edc710faa692?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1974",
+    img: "https://cdn.builder.io/api/v1/image/assets%2F3005cb3e673a454989d4f95fc852f4e9%2F892a48339765443691c8733185dcae65?format=webp&width=800",
   },
   {
     id: 2,
@@ -28,7 +28,7 @@ const services = [
       "Mechanical support on the trail",
       "Smaller groups for comfort and safety",
     ],
-    img: "https://images.unsplash.com/photo-1511300636408-a63a89df3482?auto=format&fit=crop&w=800&q=80",
+    img: "https://cdn.builder.io/api/v1/image/assets%2F3005cb3e673a454989d4f95fc852f4e9%2Fa9acac2a8f4e4cdf9f2966cbb87c07a4?format=webp&width=800",
   },
   {
     id: 3,
@@ -41,7 +41,7 @@ const services = [
       "Luggage handling and door-to-door service",
       "24/7 coordination for arrivals and departures",
     ],
-    img: "https://images.unsplash.com/photo-1526779259212-5f93f9b2b9c2?auto=format&fit=crop&w=1200&q=80",
+    img: "https://cdn.builder.io/api/v1/image/assets%2F3005cb3e673a454989d4f95fc852f4e9%2F9d222ad7a00a40e8ac19b4d9ac64af60?format=webp&width=800",
   },
   {
     id: 4,
@@ -54,7 +54,7 @@ const services = [
       "Meals and breakfast choices where applicable",
       "Convenient locations matched to the itinerary",
     ],
-    img: "https://images.unsplash.com/photo-1501117716987-c8e3f3ecf8a8?auto=format&fit=crop&w=1200&q=80",
+    img: "https://cdn.builder.io/api/v1/image/assets%2F3005cb3e673a454989d4f95fc852f4e9%2Fac41c9e9f0524de7920211025dfca06e?format=webp&width=800",
   },
   {
     id: 5,
@@ -67,7 +67,7 @@ const services = [
       "Pre-trip checks and route advisories",
       "On-trip permit coordination and support",
     ],
-    img: "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1200&q=80",
+    img: "https://cdn.builder.io/api/v1/image/assets%2F3005cb3e673a454989d4f95fc852f4e9%2Fe9507a19cb2c4c21a2ada80df4e4f48c?format=webp&width=800",
   },
   {
     id: 6,
@@ -80,7 +80,7 @@ const services = [
       "Flexible dates and group sizing",
       "Theme-based and purpose-led journeys",
     ],
-    img: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=1200&q=80",
+    img: "https://cdn.builder.io/api/v1/image/assets%2F3005cb3e673a454989d4f95fc852f4e9%2F1e4fe1e89c3f4bfba6dc2092aad6ba02?format=webp&width=800",
   },
   {
     id: 7,
@@ -93,7 +93,7 @@ const services = [
       "Guided visits to heritage and artisan centres",
       "Community-led experiences promoting responsible tourism",
     ],
-    img: "https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?auto=format&fit=crop&w=1200&q=80",
+    img: "https://cdn.builder.io/api/v1/image/assets%2F3005cb3e673a454989d4f95fc852f4e9%2F303fab4a2b1e48788cf33cee37aa83ab?format=webp&width=800",
   },
   {
     id: 8,
@@ -106,7 +106,7 @@ const services = [
       "Real-time weather and route monitoring",
       "Dedicated operations and support team",
     ],
-    img: "https://images.unsplash.com/photo-1506368249639-73a05d6f6488?auto=format&fit=crop&w=1200&q=80",
+    img: "https://cdn.builder.io/api/v1/image/assets%2F3005cb3e673a454989d4f95fc852f4e9%2Fa27aa286e4a040f5bc1a1d61fba9f7a8?format=webp&width=800",
   },
 ];
 
