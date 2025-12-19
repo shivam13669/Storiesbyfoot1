@@ -75,7 +75,7 @@ export const destinations: Destination[] = [
         itineraryUrl:
           "https://drive.google.com/uc?export=download&id=1kmpsxL3OHHMqjEt8uQaLxvLXkkkXCw0H",
         image:
-          "https://images.unsplash.com/photo-1476610182048-b716b8518aae?auto=format&fit=crop&w=1600&q=80",
+          "https://cdn.builder.io/api/v1/image/assets%2F3005cb3e673a454989d4f95fc852f4e9%2Fca630b4ecd9944bd918e837375aa1c3a?format=webp&width=800",
       },
       {
         slug: "ladakh-bike-adventure",
@@ -349,7 +349,7 @@ export const destinations: Destination[] = [
           "Certified mountain guides",
         ],
         image:
-          "https://images.unsplash.com/photo-1516131206008-dd041a9764fd?auto=format&fit=crop&w=1600&q=80",
+          "https://cdn.builder.io/api/v1/image/assets%2F3005cb3e673a454989d4f95fc852f4e9%2Ff41b9a57ee954f3098ff1c1aefa34d0b?format=webp&width=800",
       },
     ],
   },
