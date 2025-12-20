@@ -62,16 +62,6 @@ export function CurrencyPicker({
           <DialogTitle>Currency Picker</DialogTitle>
           <DialogDescription>Select your preferred currency.</DialogDescription>
 
-          {/* Regional pricing info */}
-          <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800 rounded-lg flex items-start gap-3">
-            <Globe className="h-4 w-4 text-blue-600 dark:text-blue-400 mt-1 flex-shrink-0" />
-            <div className="text-sm text-blue-900 dark:text-blue-100">
-              <p className="font-medium">Detected Region: {regionPricing.regionName}</p>
-              <p className="text-xs mt-1 opacity-90">Default currency: {regionPricing.baseCurrency}</p>
-              <p className="text-xs mt-2 opacity-75">💡 Prices may vary by region</p>
-            </div>
-          </div>
-
           <div className="mt-4">
             <Input
               placeholder="Search currencies"
