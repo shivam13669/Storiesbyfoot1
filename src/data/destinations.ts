@@ -222,7 +222,7 @@ export const destinations: Destination[] = [
           "Campfire storytelling nights",
         ],
         image:
-          "https://images.unsplash.com/photo-1562157873-818bc0726f99?auto=format&fit=crop&w=1600&q=80",
+          "https://cdn.builder.io/api/v1/image/assets%2F4a4b23c4a4604f318cabea6540b9b38b%2F36318bde1826458f8c22a7003aedd265?format=webp&width=800",
       },
       {
         slug: "khasi-highlands-retreat",
@@ -240,7 +240,7 @@ export const destinations: Destination[] = [
           "Sunset at Laitlum canyon",
         ],
         image:
-          "https://images.unsplash.com/photo-1548783307-f63adc1a43a0?auto=format&fit=crop&w=1600&q=80",
+          "https://cdn.builder.io/api/v1/image/assets%2F4a4b23c4a4604f318cabea6540b9b38b%2F107c2ff1e4bf414fa214bc78eaab88c0?format=webp&width=800",
       },
     ],
   },
@@ -277,7 +277,7 @@ export const destinations: Destination[] = [
           "Kala Patthar viewpoint",
         ],
         image:
-          "https://images.unsplash.com/photo-1509644851169-51ebdcca9864?auto=format&fit=crop&w=1600&q=80",
+          "https://cdn.builder.io/api/v1/image/assets%2F4a4b23c4a4604f318cabea6540b9b38b%2F9f419557f45e49b18a9a1af4d0db408e?format=webp&width=800",
       },
       {
         slug: "kathmandu-heritage-chitwan",
@@ -295,7 +295,7 @@ export const destinations: Destination[] = [
           "Phewa Lake boating",
         ],
         image:
-          "https://images.unsplash.com/photo-1563144760-3da8c746b16c?auto=format&fit=crop&w=1600&q=80",
+          "https://cdn.builder.io/api/v1/image/assets%2F4a4b23c4a4604f318cabea6540b9b38b%2F3ba47243a6834d3eade8da3e45996207?format=webp&width=800",
       },
     ],
   },
