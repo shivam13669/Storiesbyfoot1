@@ -21,6 +21,8 @@ type CurrencyContextValue = {
   setCurrency: (code: string) => void;
   region: string;
   regionPricing: RegionPricing;
+  detectedRegion: string;
+  isIndianUser: boolean;
   convertPrice: (basePrice: number, fromCurrency?: string) => number;
   formatPrice: (basePrice: number, opts?: { maximumFractionDigits?: number; fromCurrency?: string }) => string;
   rates: RatesMap;
