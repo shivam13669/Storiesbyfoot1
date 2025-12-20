@@ -186,10 +186,10 @@ export function CurrencyProvider({ children }: { children: React.ReactNode }) {
   const isIndianUser = detectedRegion === "IN";
   const regionPricing = useMemo(() => getRegionPricing(detectedRegion), [detectedRegion]);
 
-  // Use region's base currency for exchange rate fetching
+  // Always use INR as base currency for exchange rate fetching
   const { data, isLoading } = useQuery({
-    queryKey: ["fx-rates", regionPricing.baseCurrency],
-    queryFn: ({ signal }) => fetchExchangeRates(regionPricing.baseCurrency, signal),
+    queryKey: ["fx-rates", "INR"],
+    queryFn: ({ signal }) => fetchExchangeRates("INR", signal),
     staleTime: 1000 * 60 * 60, // 1 hour
     refetchInterval: 1000 * 60 * 5, // refresh every 5 minutes
     refetchOnWindowFocus: false,
