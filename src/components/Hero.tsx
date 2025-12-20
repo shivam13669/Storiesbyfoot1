@@ -41,9 +41,11 @@ const Hero: React.FC = () => {
           <div
             key={img.src}
             aria-hidden={i !== index}
-            className={`absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-1000`}
+            className={`absolute inset-0 bg-cover bg-no-repeat transition-opacity duration-1000`}
             style={{
               backgroundImage: `url(${img.src})`,
+              backgroundPosition: "center",
+              backgroundSize: "cover",
               opacity: i === index ? 1 : 0,
               transitionDuration: `${TRANSITION_MS}ms`,
             }}
