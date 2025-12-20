@@ -18,7 +18,6 @@ export function CurrencyPicker({
 }) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
-  const { region, regionPricing } = useCurrency();
 
   const display = getCurrencyByCode(value);
   const flagCc = (FLAG_BY_CURRENCY[display.code] || display.code.slice(0, 2)).toLowerCase();
