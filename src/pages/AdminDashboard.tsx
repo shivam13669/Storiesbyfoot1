@@ -252,10 +252,14 @@ export default function AdminDashboard() {
     }
   }
 
-  if (isLoading) {
+  // Show loading state while authenticating or fetching data
+  if (isAuthLoading || isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500"></div>
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto mb-4"></div>
+          <p className="text-gray-600">{isAuthLoading ? 'Loading authentication...' : 'Loading dashboard...'}</p>
+        </div>
       </div>
     )
   }
