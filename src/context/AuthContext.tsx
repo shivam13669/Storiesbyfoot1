@@ -43,13 +43,27 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     initializeAuth()
 
-    // Listen for auth changes
+    // Listen for auth changes (e.g., on login, logout, refresh)
     const { data: authListener } = supabase.auth.onAuthStateChange(async (event, session) => {
-      setSession(session)
-      if (session?.user) {
-        await fetchUserProfile(session.user.id)
-      } else {
+      console.log('[Auth] Auth state changed:', event, session?.user?.id)
+
+      try {
+        setSession(session)
+
+        if (session?.user) {
+          // For subsequent logins, we need to manage loading state
+          setIsLoading(true)
+          await fetchUserProfile(session.user.id)
+        } else {
+          // User logged out
+          setUser(null)
+        }
+      } catch (error) {
+        console.error('[Auth] Error in onAuthStateChange handler:', error)
         setUser(null)
+      } finally {
+        // ALWAYS exit loading state - this prevents infinite "Logging in..." loop
+        setIsLoading(false)
       }
     })
 
