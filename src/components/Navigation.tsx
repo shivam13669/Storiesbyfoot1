@@ -22,6 +22,7 @@ const Navigation = () => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
   const { currency, setCurrency } = useCurrency();
   const { user, loading } = useAuth();
 
