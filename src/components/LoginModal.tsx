@@ -154,32 +154,42 @@ export const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
     }
   };
 
-  const handleSignup = (e: React.FormEvent) => {
+  const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
+    setGeneralError("");
+
     if (!validateEmail(signupEmail)) {
       setSignupEmailError("Please enter a valid email address (e.g., you@example.com)");
       return;
     }
     if (!validateInternationalMobile(mobileNumber, selectedCountry.code)) {
       setMobileNumberError("Please enter a valid mobile number for the selected country");
-      alert("Please enter a valid mobile number for the selected country");
       return;
     }
     if (!isPasswordValid) {
-      alert("Password does not meet requirements");
+      setGeneralError("Password does not meet all requirements");
       return;
     }
     if (!agreeTerms) {
-      alert("Please agree to terms and conditions");
+      setGeneralError("Please agree to terms and conditions");
       return;
     }
-    console.log("Signup:", {
-      fullName,
-      signupEmail,
-      mobileNumber,
-      country: selectedCountry,
-      signupPassword,
-    });
+
+    setIsLoading(true);
+    try {
+      await signupWithEmail({
+        email: signupEmail,
+        password: signupPassword,
+        fullName,
+        mobileNumber,
+        country: selectedCountry,
+      });
+      onClose();
+    } catch (error) {
+      setGeneralError(error instanceof Error ? error.message : "Signup failed");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleForgotPassword = (e: React.FormEvent) => {
