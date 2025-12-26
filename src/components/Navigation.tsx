@@ -176,15 +176,34 @@ const Navigation = () => {
                 <div className="flex items-center gap-2">
                   <CurrencyPicker value={currency} onChange={setCurrency} className="flex-1" />
                 </div>
-                {isAuthenticated && user ? (
+                {isAuthenticated ? (
                   <>
-                    <Link
-                      to={isAdmin ? "/admin-dashboard" : "/user-dashboard"}
-                      onClick={() => setIsOpen(false)}
-                      className="block px-3 py-2 rounded-md bg-orange-500/20 text-orange-300 text-sm font-medium hover:bg-orange-500/30 transition-colors"
-                    >
-                      {isAdmin ? "Admin Dashboard" : "My Dashboard"}
-                    </Link>
+                    {isAdmin ? (
+                      <Link
+                        to="/admin-dashboard"
+                        onClick={() => setIsOpen(false)}
+                        className="block px-3 py-2 rounded-md bg-orange-500/20 text-orange-300 text-sm font-medium hover:bg-orange-500/30 transition-colors"
+                      >
+                        Admin Dashboard
+                      </Link>
+                    ) : user ? (
+                      <Link
+                        to="/user-dashboard"
+                        onClick={() => setIsOpen(false)}
+                        className="block px-3 py-2 rounded-md bg-orange-500/20 text-orange-300 text-sm font-medium hover:bg-orange-500/30 transition-colors"
+                      >
+                        My Dashboard
+                      </Link>
+                    ) : session ? (
+                      <Link
+                        to="/admin-setup"
+                        onClick={() => setIsOpen(false)}
+                        className="block px-3 py-2 rounded-md bg-orange-500/20 text-orange-300 text-sm font-medium hover:bg-orange-500/30 transition-colors flex items-center gap-2"
+                      >
+                        <AlertCircle className="w-4 h-4" />
+                        Complete Admin Setup
+                      </Link>
+                    ) : null}
                     <button
                       onClick={() => {
                         logout();
