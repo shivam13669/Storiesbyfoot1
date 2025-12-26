@@ -143,7 +143,7 @@ export const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
       setEmailError("Please enter a valid email address (e.g., you@example.com)");
       return;
     }
-    
+
     setIsLoading(true);
     const { error } = await login(email, password);
     setIsLoading(false);
@@ -156,6 +156,13 @@ export const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
       setEmail("");
       setPassword("");
       onClose();
+
+      // Wait a moment for auth state to update, then check if redirect is needed
+      setTimeout(() => {
+        // The ProtectedRoute will handle redirects, so just close the modal
+        // If user is admin, they'll be redirected to dashboard
+        // If user needs setup, Navigation will show the setup option
+      }, 500);
     }
   };
 
