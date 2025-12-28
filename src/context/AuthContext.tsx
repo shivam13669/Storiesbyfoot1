@@ -64,11 +64,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         // Log detailed error info instead of [object Object]
         const errorMessage = error instanceof Error ? error.message : String(error)
         const errorCode = (error as any)?.code || 'UNKNOWN'
+        const errorStatus = (error as any)?.status || 'UNKNOWN'
+        const errorDetails = (error as any)?.details || 'No details'
 
         console.error('[Auth] Error in onAuthStateChange handler:', {
           message: errorMessage,
           code: errorCode,
-          fullError: error,
+          status: errorStatus,
+          details: errorDetails,
         })
 
         setUser(null)
