@@ -27,7 +27,7 @@ const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const { currency, setCurrency } = useCurrency();
-  const { user, isAuthenticated, isAdmin, logout, session } = useAuth();
+  const { user, isAuthenticated, isAdmin, logout, session, isLoading } = useAuth();
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-lg border-b border-white/10 text-white shadow-lg">
@@ -67,7 +67,13 @@ const Navigation = () => {
           {/* Currency + Login/User Menu */}
           <div className="hidden md:flex items-center gap-3">
             <CurrencyPicker value={currency} onChange={setCurrency} />
-            {isAuthenticated && user ? (
+            {isLoading && isAuthenticated ? (
+              // Show loading state while profile is being fetched
+              <div className="flex items-center gap-2 px-3 py-2">
+                <div className="w-8 h-8 rounded-full bg-orange-500/50 animate-pulse"></div>
+                <span className="text-white/60 text-sm font-medium">Loading...</span>
+              </div>
+            ) : isAuthenticated && user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <button className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-white/10 transition-colors">
@@ -176,7 +182,11 @@ const Navigation = () => {
                 <div className="flex items-center gap-2">
                   <CurrencyPicker value={currency} onChange={setCurrency} className="flex-1" />
                 </div>
-                {isAuthenticated ? (
+                {isLoading && isAuthenticated ? (
+                  <div className="px-3 py-2 text-sm text-orange-300">
+                    Loading dashboard...
+                  </div>
+                ) : isAuthenticated ? (
                   <>
                     {isAdmin ? (
                       <Link
@@ -194,16 +204,15 @@ const Navigation = () => {
                       >
                         My Dashboard
                       </Link>
-                    ) : session ? (
+                    ) : (
                       <Link
-                        to="/admin-setup"
+                        to="/user-dashboard"
                         onClick={() => setIsOpen(false)}
-                        className="block px-3 py-2 rounded-md bg-orange-500/20 text-orange-300 text-sm font-medium hover:bg-orange-500/30 transition-colors flex items-center gap-2"
+                        className="block px-3 py-2 rounded-md bg-orange-500/20 text-orange-300 text-sm font-medium hover:bg-orange-500/30 transition-colors"
                       >
-                        <AlertCircle className="w-4 h-4" />
-                        Complete Admin Setup
+                        My Dashboard
                       </Link>
-                    ) : null}
+                    )}
                     <button
                       onClick={() => {
                         logout();
