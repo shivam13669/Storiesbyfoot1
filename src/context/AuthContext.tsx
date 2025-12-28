@@ -53,7 +53,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         if (session?.user) {
           // For subsequent logins, we need to manage loading state
           setIsLoading(true)
-          console.log('[Auth] Session exists, fetching profile...')
+          console.log('[Auth] Session exists, fetching profile for user:', session.user.id)
           await fetchUserProfile(session.user.id)
         } else {
           // User logged out
@@ -63,13 +63,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       } catch (error) {
         // Log detailed error info instead of [object Object]
         const errorMessage = error instanceof Error ? error.message : String(error)
-        const errorCode = (error as any)?.code || 'UNKNOWN'
+        const errorName = error instanceof Error ? error.name : 'Unknown'
 
         console.error('[Auth] Error in onAuthStateChange handler:', {
+          errorName,
           message: errorMessage,
-          code: errorCode,
-          fullError: error,
+          type: typeof error,
         })
+
+        if (error instanceof Error) {
+          console.error('[Auth] Stack trace:', error.stack)
+        }
 
         setUser(null)
       } finally {
