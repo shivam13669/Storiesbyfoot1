@@ -157,8 +157,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const { data, error } = await supabase.auth.signInWithPassword({ email, password })
 
       if (error) {
-        console.error('[Auth] Login failed:', error.message)
-        return { error: error.message }
+        const errorMessage = error?.message || 'Unknown error'
+        console.error('[Auth] Login failed:', {
+          message: errorMessage,
+          code: (error as any)?.code,
+          status: (error as any)?.status,
+        })
+        return { error: errorMessage }
       }
 
       if (!data.session?.user) {
@@ -172,7 +177,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       // This ensures the user data is populated after successful login
       return { error: null }
     } catch (error) {
-      console.error('[Auth] Unexpected error during login:', error)
+      const errorMessage = error instanceof Error ? error.message : String(error)
+      console.error('[Auth] Unexpected error during login:', {
+        message: errorMessage,
+        fullError: error,
+      })
       return { error: 'An unexpected error occurred' }
     }
   }
