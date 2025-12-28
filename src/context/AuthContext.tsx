@@ -107,10 +107,55 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         if (errorCode === 'PGRST116') {
           // No row found - user exists in auth but not in users table
-          console.warn('[Auth] User profile not found in database. User may not be set up yet.', JSON.stringify(fullError, null, 2))
-          setUser(null)
+          // Try to create a default profile for the user
+          console.warn('[Auth] User profile not found. Attempting to create default profile...', JSON.stringify(fullError, null, 2))
+
+          const authUser = (await supabase.auth.getUser()).data.user
+          if (authUser) {
+            const { error: insertError } = await supabase.from('users').insert({
+              id: authUser.id,
+              email: authUser.email || '',
+              fullName: authUser.user_metadata?.full_name || authUser.email?.split('@')[0] || 'User',
+              role: 'user',
+              isActive: true,
+              canWriteTestimonial: false,
+              createdAt: new Date().toISOString(),
+              updatedAt: new Date().toISOString(),
+            })
+
+            if (insertError) {
+              console.error('[Auth] Failed to create default profile:', JSON.stringify({
+                code: insertError.code,
+                message: insertError.message,
+                details: insertError.details,
+              }, null, 2))
+              setUser(null)
+              return
+            }
+
+            // Profile created, now fetch it
+            console.log('[Auth] Default profile created, fetching...')
+            const { data: newData, error: fetchError } = await supabase
+              .from('users')
+              .select('*')
+              .eq('id', userId)
+              .single()
+
+            if (fetchError) {
+              console.error('[Auth] Failed to fetch newly created profile:', JSON.stringify({
+                code: fetchError.code,
+                message: fetchError.message,
+              }, null, 2))
+              setUser(null)
+              return
+            }
+
+            console.log('[Auth] Profile created and fetched successfully:', { userId, role: newData?.role })
+            setUser(newData as User)
+          }
           return
         }
+
         if (errorCode === '42501') {
           // RLS policy denial
           console.error('[Auth] RLS Policy Denied: Cannot fetch user profile. Check RLS policies.', JSON.stringify(fullError, null, 2))
