@@ -136,15 +136,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const errorMessage = error instanceof Error ? error.message : String(error)
       const errorCode = (error as any)?.code || 'UNKNOWN'
       const errorStatus = (error as any)?.status || 'UNKNOWN'
+      const errorDetails = (error as any)?.details || 'N/A'
+      const errorHint = (error as any)?.hint || 'N/A'
 
-      console.error('[Auth] Error fetching user profile:', {
-        message: errorMessage,
-        code: errorCode,
-        status: errorStatus,
-        details: (error as any)?.details,
-        hint: (error as any)?.hint,
-        fullError: error,
-      })
+      console.error('[Auth] Error fetching user profile:')
+      console.error('  Message:', errorMessage)
+      console.error('  Code:', errorCode)
+      console.error('  Status:', errorStatus)
+      console.error('  Details:', errorDetails)
+      console.error('  Hint:', errorHint)
+      console.error('  Full Error:', JSON.stringify(error, null, 2))
 
       setUser(null)
     }
