@@ -108,7 +108,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         if (errorCode === 'PGRST116') {
           // No row found - user exists in auth but not in users table
-          console.warn('[Auth] User profile not found in database. User may not be set up yet.', fullError)
+          // This can happen if profile creation during signup failed
+          console.warn('[Auth] User profile not found in database. User may not have completed setup.', fullError)
+          // Don't set user to null - allow them to proceed and create profile if needed
           setUser(null)
           return
         }
