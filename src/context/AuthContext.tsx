@@ -181,13 +181,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       return { error: null }
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : String(error)
-      console.error('[Auth] Unexpected error during login:', {
+      const errorDetails = {
         message: errorMessage,
         code: (error as any)?.code,
         status: (error as any)?.status,
-        fullError: error,
-      })
-      return { error: errorMessage || 'An unexpected error occurred' }
+        name: (error as any)?.name,
+        type: typeof error,
+        keys: Object.keys(error || {}),
+        fullError: JSON.stringify(error, null, 2),
+      }
+      console.error('[Auth] Unexpected error during login:', errorDetails)
+      return { error: errorMessage || 'An unexpected error occurred. Check browser console for details.' }
     }
   }
 
