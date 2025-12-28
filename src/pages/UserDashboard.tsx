@@ -19,7 +19,7 @@ import { Trash2, Plus, Edit2 } from 'lucide-react'
 import { toast } from 'sonner'
 
 export default function UserDashboard() {
-  const { user } = useAuth()
+  const { user, isLoading: isAuthLoading } = useAuth()
   const [testimonials, setTestimonials] = useState<Testimonial[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -37,12 +37,17 @@ export default function UserDashboard() {
   })
 
   useEffect(() => {
+    // Wait for auth to finish loading before checking user
+    if (isAuthLoading) {
+      return
+    }
+
     if (!user) {
       window.location.href = '/'
       return
     }
     fetchTestimonials()
-  }, [user])
+  }, [user, isAuthLoading])
 
   const fetchTestimonials = async () => {
     if (!user) return
@@ -135,10 +140,14 @@ export default function UserDashboard() {
     }
   }
 
-  if (isLoading) {
+  // Show loading state while authenticating or fetching data
+  if (isAuthLoading || isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500"></div>
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto mb-4"></div>
+          <p className="text-gray-600">{isAuthLoading ? 'Loading authentication...' : 'Loading dashboard...'}</p>
+        </div>
       </div>
     )
   }

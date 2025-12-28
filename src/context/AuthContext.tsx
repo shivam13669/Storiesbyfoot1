@@ -43,13 +43,39 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     initializeAuth()
 
-    // Listen for auth changes
+    // Listen for auth changes (e.g., on login, logout, refresh)
     const { data: authListener } = supabase.auth.onAuthStateChange(async (event, session) => {
-      setSession(session)
-      if (session?.user) {
-        await fetchUserProfile(session.user.id)
-      } else {
+      console.log('[Auth] Auth state changed:', event, session?.user?.id)
+
+      try {
+        setSession(session)
+
+        if (session?.user) {
+          // For subsequent logins, we need to manage loading state
+          setIsLoading(true)
+          console.log('[Auth] Session exists, fetching profile...')
+          await fetchUserProfile(session.user.id)
+        } else {
+          // User logged out
+          console.log('[Auth] No session, clearing user')
+          setUser(null)
+        }
+      } catch (error) {
+        // Log detailed error info instead of [object Object]
+        const errorMessage = error instanceof Error ? error.message : String(error)
+        const errorCode = (error as any)?.code || 'UNKNOWN'
+
+        console.error('[Auth] Error in onAuthStateChange handler:', {
+          message: errorMessage,
+          code: errorCode,
+          fullError: error,
+        })
+
         setUser(null)
+      } finally {
+        // ALWAYS exit loading state - this prevents infinite "Logging in..." loop
+        console.log('[Auth] Setting isLoading to false')
+        setIsLoading(false)
       }
     })
 
@@ -60,27 +86,102 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const fetchUserProfile = async (userId: string) => {
     try {
+      console.log('[Auth] Fetching profile for user:', userId)
+
       const { data, error } = await supabase
         .from('users')
         .select('*')
         .eq('id', userId)
         .single()
 
-      if (error) throw error
+      // Handle RLS or permission errors explicitly
+      if (error) {
+        const errorCode = error?.code || 'UNKNOWN'
+        const errorMessage = error?.message || 'Unknown error'
+        const fullError = {
+          code: errorCode,
+          message: errorMessage,
+          details: error?.details,
+          hint: error?.hint,
+          status: error?.status,
+        }
+
+        if (errorCode === 'PGRST116') {
+          // No row found - user exists in auth but not in users table
+          console.warn('[Auth] User profile not found in database. User may not be set up yet.', fullError)
+          setUser(null)
+          return
+        }
+        if (errorCode === '42501') {
+          // RLS policy denial
+          console.error('[Auth] RLS Policy Denied: Cannot fetch user profile. Check RLS policies.', fullError)
+          setUser(null)
+          return
+        }
+        // Any other error - log full details and throw
+        console.error('[Auth] Unexpected error fetching profile:', fullError)
+        throw error
+      }
+
+      if (!data) {
+        console.warn('[Auth] Profile fetch returned null data', { userId })
+        setUser(null)
+        return
+      }
+
+      console.log('[Auth] Profile fetched successfully:', { userId, role: data.role })
       setUser(data as User)
     } catch (error) {
-      console.error('Error fetching user profile:', error)
+      // Better error logging - show all details instead of [object Object]
+      const errorMessage = error instanceof Error ? error.message : String(error)
+      const errorCode = (error as any)?.code || 'UNKNOWN'
+      const errorStatus = (error as any)?.status || 'UNKNOWN'
+
+      console.error('[Auth] Error fetching user profile:', {
+        message: errorMessage,
+        code: errorCode,
+        status: errorStatus,
+        details: (error as any)?.details,
+        hint: (error as any)?.hint,
+        fullError: error,
+      })
+
       setUser(null)
     }
   }
 
   const login = async (email: string, password: string) => {
     try {
-      const { error } = await supabase.auth.signInWithPassword({ email, password })
-      if (error) return { error: error.message }
+      console.log('[Auth] Login attempt for:', email)
 
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password })
+
+      if (error) {
+        const errorMessage = error?.message || 'Unknown error'
+        console.error('[Auth] Login failed:', {
+          message: errorMessage,
+          code: (error as any)?.code,
+          status: (error as any)?.status,
+        })
+        return { error: errorMessage }
+      }
+
+      if (!data.session?.user) {
+        console.error('[Auth] Login succeeded but no session/user returned')
+        return { error: 'Login succeeded but session was not created' }
+      }
+
+      console.log('[Auth] Login successful, session created:', data.session.user.id)
+
+      // The onAuthStateChange listener will handle fetching the user profile
+      // This ensures the user data is populated after successful login
       return { error: null }
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error)
+      console.error('[Auth] Unexpected error during login:', {
+        message: errorMessage,
+        fullError: error,
+      })
       return { error: 'An unexpected error occurred' }
     }
   }
@@ -117,11 +218,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const logout = async () => {
     try {
+      console.log('[Auth] Logging out')
+
       await supabase.auth.signOut()
+
+      // Clear auth state explicitly
       setUser(null)
       setSession(null)
+      setIsLoading(false)
+
+      console.log('[Auth] Logout successful')
     } catch (error) {
-      console.error('Error logging out:', error)
+      console.error('[Auth] Error logging out:', error)
+      // Even if logout fails, clear the state
+      setUser(null)
+      setSession(null)
+      setIsLoading(false)
     }
   }
 

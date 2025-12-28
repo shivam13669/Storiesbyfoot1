@@ -16,6 +16,7 @@ import TermsAndConditionPage from "./pages/TermsAndCondition";
 import PrivacyPolicyPage from "./pages/PrivacyPolicy";
 import CookiePolicyPage from "./pages/CookiePolicy";
 import AdminDashboard from "./pages/AdminDashboard";
+import AdminSetup from "./pages/AdminSetup";
 import UserDashboard from "./pages/UserDashboard";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
@@ -44,6 +45,7 @@ const App = () => (
               <Route path="/terms-and-condition" element={<TermsAndConditionPage />} />
               <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
               <Route path="/cookie-policy" element={<CookiePolicyPage />} />
+              <Route path="/admin-setup" element={<AdminSetup />} />
               <Route
                 path="/admin-dashboard"
                 element={

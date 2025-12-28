@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Menu, X, LogOut, LayoutDashboard, User as UserIcon } from "lucide-react";
+import { Menu, X, LogOut, LayoutDashboard, User as UserIcon, AlertCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { CurrencyPicker } from "./CurrencyPicker";
@@ -27,7 +27,7 @@ const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const { currency, setCurrency } = useCurrency();
-  const { user, isAuthenticated, isAdmin, logout } = useAuth();
+  const { user, isAuthenticated, isAdmin, logout, session } = useAuth();
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-lg border-b border-white/10 text-white shadow-lg">
@@ -92,12 +92,24 @@ const Navigation = () => {
                       </Link>
                     </DropdownMenuItem>
                   ) : (
-                    <DropdownMenuItem asChild>
-                      <Link to="/user-dashboard" className="flex items-center gap-2 cursor-pointer">
-                        <UserIcon className="w-4 h-4" />
-                        My Dashboard
-                      </Link>
-                    </DropdownMenuItem>
+                    <>
+                      {user ? (
+                        <DropdownMenuItem asChild>
+                          <Link to="/user-dashboard" className="flex items-center gap-2 cursor-pointer">
+                            <UserIcon className="w-4 h-4" />
+                            My Dashboard
+                          </Link>
+                        </DropdownMenuItem>
+                      ) : session ? (
+                        // User is logged in but profile not found - show setup option
+                        <DropdownMenuItem asChild>
+                          <Link to="/admin-setup" className="flex items-center gap-2 cursor-pointer text-orange-600 font-semibold">
+                            <AlertCircle className="w-4 h-4" />
+                            Complete Admin Setup
+                          </Link>
+                        </DropdownMenuItem>
+                      ) : null}
+                    </>
                   )}
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={() => logout()} className="flex items-center gap-2 text-red-600 cursor-pointer">
@@ -164,15 +176,34 @@ const Navigation = () => {
                 <div className="flex items-center gap-2">
                   <CurrencyPicker value={currency} onChange={setCurrency} className="flex-1" />
                 </div>
-                {isAuthenticated && user ? (
+                {isAuthenticated ? (
                   <>
-                    <Link
-                      to={isAdmin ? "/admin-dashboard" : "/user-dashboard"}
-                      onClick={() => setIsOpen(false)}
-                      className="block px-3 py-2 rounded-md bg-orange-500/20 text-orange-300 text-sm font-medium hover:bg-orange-500/30 transition-colors"
-                    >
-                      {isAdmin ? "Admin Dashboard" : "My Dashboard"}
-                    </Link>
+                    {isAdmin ? (
+                      <Link
+                        to="/admin-dashboard"
+                        onClick={() => setIsOpen(false)}
+                        className="block px-3 py-2 rounded-md bg-orange-500/20 text-orange-300 text-sm font-medium hover:bg-orange-500/30 transition-colors"
+                      >
+                        Admin Dashboard
+                      </Link>
+                    ) : user ? (
+                      <Link
+                        to="/user-dashboard"
+                        onClick={() => setIsOpen(false)}
+                        className="block px-3 py-2 rounded-md bg-orange-500/20 text-orange-300 text-sm font-medium hover:bg-orange-500/30 transition-colors"
+                      >
+                        My Dashboard
+                      </Link>
+                    ) : session ? (
+                      <Link
+                        to="/admin-setup"
+                        onClick={() => setIsOpen(false)}
+                        className="block px-3 py-2 rounded-md bg-orange-500/20 text-orange-300 text-sm font-medium hover:bg-orange-500/30 transition-colors flex items-center gap-2"
+                      >
+                        <AlertCircle className="w-4 h-4" />
+                        Complete Admin Setup
+                      </Link>
+                    ) : null}
                     <button
                       onClick={() => {
                         logout();

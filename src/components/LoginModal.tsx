@@ -139,23 +139,40 @@ export const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log('[LoginModal] Login attempt started')
+
     if (!validateEmail(email)) {
+      console.log('[LoginModal] Email validation failed')
       setEmailError("Please enter a valid email address (e.g., you@example.com)");
       return;
     }
-    
+
     setIsLoading(true);
+    console.log('[LoginModal] Calling login function...')
+
     const { error } = await login(email, password);
-    setIsLoading(false);
+
+    console.log('[LoginModal] Login function returned:', { error })
 
     if (error) {
+      console.log('[LoginModal] Login error:', error)
+      setIsLoading(false);
       setEmailError(error);
       toast.error(error);
     } else {
-      toast.success("Logged in successfully!");
+      console.log('[LoginModal] Login successful! Waiting for profile to load...')
+      toast.success("Logged in successfully! Redirecting to your dashboard...");
+
+      // Add a small delay to ensure auth context has time to load the profile
+      // The useAuthRedirect hook on the home page will handle the redirect
+      await new Promise(resolve => setTimeout(resolve, 800));
+
       setEmail("");
       setPassword("");
       onClose();
+      setIsLoading(false);
+
+      console.log('[LoginModal] Modal closed, useAuthRedirect hook will handle dashboard redirect')
     }
   };
 
@@ -180,17 +197,22 @@ export const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
 
     setIsLoading(true);
     const { error } = await signup(signupEmail, signupPassword, fullName);
-    setIsLoading(false);
 
     if (error) {
+      setIsLoading(false);
       toast.error(error);
     } else {
-      toast.success("Account created! Please log in.");
+      toast.success("Account created successfully! Switching to login...");
+
+      // Wait a moment, then switch to login tab
+      await new Promise(resolve => setTimeout(resolve, 500));
+
       setSignupEmail("");
       setSignupPassword("");
       setConfirmPassword("");
       setFullName("");
       setMobileNumber("");
+      setIsLoading(false);
       setActiveTab('login');
     }
   };

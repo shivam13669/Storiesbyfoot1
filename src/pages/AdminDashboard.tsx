@@ -18,7 +18,7 @@ import { Trash2, CheckCircle, XCircle, Users, FileText, Plus, Edit2, Eye } from 
 import { toast } from 'sonner'
 
 export default function AdminDashboard() {
-  const { user, isAdmin } = useAuth()
+  const { user, isAdmin, isLoading: isAuthLoading } = useAuth()
   const [users, setUsers] = useState<User[]>([])
   const [testimonials, setTestimonials] = useState<Testimonial[]>([])
   const [isLoading, setIsLoading] = useState(true)
@@ -30,12 +30,17 @@ export default function AdminDashboard() {
   const [isCreatingUser, setIsCreatingUser] = useState(false)
 
   useEffect(() => {
+    // Wait for auth to finish loading before checking role
+    if (isAuthLoading) {
+      return
+    }
+
     if (!isAdmin) {
       window.location.href = '/'
       return
     }
     fetchData()
-  }, [isAdmin])
+  }, [isAdmin, isAuthLoading])
 
   const fetchData = async () => {
     try {
@@ -247,10 +252,14 @@ export default function AdminDashboard() {
     }
   }
 
-  if (isLoading) {
+  // Show loading state while authenticating or fetching data
+  if (isAuthLoading || isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500"></div>
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto mb-4"></div>
+          <p className="text-gray-600">{isAuthLoading ? 'Loading authentication...' : 'Loading dashboard...'}</p>
+        </div>
       </div>
     )
   }
