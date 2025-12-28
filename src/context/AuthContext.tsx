@@ -98,28 +98,39 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (error) {
         const errorCode = error?.code || 'UNKNOWN'
         const errorMessage = error?.message || 'Unknown error'
-        const fullError = {
-          code: errorCode,
-          message: errorMessage,
-          details: error?.details,
-          hint: error?.hint,
-          status: error?.status,
-        }
+        const details = error?.details || 'No details'
+        const hint = error?.hint || 'No hint'
+        const status = error?.status || 'Unknown status'
 
         if (errorCode === 'PGRST116') {
           // No row found - user exists in auth but not in users table
-          console.warn('[Auth] User profile not found in database. User may not be set up yet.', fullError)
+          console.warn('[Auth] User profile not found in database. User may not be set up yet.', {
+            code: errorCode,
+            message: errorMessage,
+            status,
+          })
           setUser(null)
           return
         }
         if (errorCode === '42501') {
           // RLS policy denial
-          console.error('[Auth] RLS Policy Denied: Cannot fetch user profile. Check RLS policies.', fullError)
+          console.error('[Auth] RLS Policy Denied: Cannot fetch user profile. Check RLS policies.', {
+            code: errorCode,
+            message: errorMessage,
+            hint,
+            status,
+          })
           setUser(null)
           return
         }
         // Any other error - log full details and throw
-        console.error('[Auth] Unexpected error fetching profile:', fullError)
+        console.error('[Auth] Unexpected error fetching profile:', {
+          code: errorCode,
+          message: errorMessage,
+          details,
+          hint,
+          status,
+        })
         throw error
       }
 
