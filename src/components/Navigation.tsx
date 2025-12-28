@@ -87,27 +87,24 @@ const Navigation = () => {
                         {displayUser.email}
                       </DropdownMenuItem>
                       <DropdownMenuSeparator />
-                      {isAdmin ? (
+                      <DropdownMenuItem asChild>
+                        <Link to="/user-dashboard" className="flex items-center gap-2 cursor-pointer">
+                          <UserIcon className="w-4 h-4" />
+                          My Profile
+                        </Link>
+                      </DropdownMenuItem>
+                      {isAdmin && (
                         <DropdownMenuItem asChild>
                           <Link to="/admin-dashboard" className="flex items-center gap-2 cursor-pointer">
                             <LayoutDashboard className="w-4 h-4" />
                             Admin Dashboard
                           </Link>
                         </DropdownMenuItem>
-                      ) : (
-                        <>
-                          {user && !isAdmin ? (
-                            <DropdownMenuItem asChild>
-                              <Link to="/user-dashboard" className="flex items-center gap-2 cursor-pointer">
-                                <UserIcon className="w-4 h-4" />
-                                My Profile
-                              </Link>
-                            </DropdownMenuItem>
-                          ) : null}
-                        </>
                       )}
                       <DropdownMenuSeparator />
-                      <DropdownMenuItem onClick={() => logout()} className="flex items-center gap-2 text-red-600 cursor-pointer">
+                      <DropdownMenuItem onClick={async () => {
+                        await logout()
+                      }} className="flex items-center gap-2 text-red-600 cursor-pointer">
                         <LogOut className="w-4 h-4" />
                         Logout
                       </DropdownMenuItem>
