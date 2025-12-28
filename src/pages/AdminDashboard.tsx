@@ -36,9 +36,12 @@ export default function AdminDashboard() {
     }
 
     if (!isAdmin) {
+      console.log('[AdminDashboard] User is not admin, redirecting to home')
       window.location.href = '/'
       return
     }
+
+    console.log('[AdminDashboard] User is admin, fetching data')
     fetchData()
   }, [isAdmin, isAuthLoading])
 
