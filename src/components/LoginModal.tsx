@@ -173,16 +173,15 @@ export const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
       console.log('[LoginModal] Login successful! Waiting for profile to load...')
       toast.success("Logged in successfully! Redirecting to your dashboard...");
 
-      // Add a small delay to ensure auth context has time to load the profile
-      // The useAuthRedirect hook on the home page will handle the redirect
-      await new Promise(resolve => setTimeout(resolve, 800));
-
       setEmail("");
       setPassword("");
-      onClose();
       setIsLoading(false);
 
-      console.log('[LoginModal] Modal closed, useAuthRedirect hook will handle dashboard redirect')
+      // Set flag to wait for user profile to load before closing modal
+      // The useEffect above will close the modal when user profile is loaded
+      setWaitingForUserProfile(true);
+
+      console.log('[LoginModal] Waiting for user profile to load before closing modal')
     }
   };
 
