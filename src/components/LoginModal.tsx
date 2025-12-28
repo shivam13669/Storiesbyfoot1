@@ -197,17 +197,22 @@ export const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
 
     setIsLoading(true);
     const { error } = await signup(signupEmail, signupPassword, fullName);
-    setIsLoading(false);
 
     if (error) {
+      setIsLoading(false);
       toast.error(error);
     } else {
-      toast.success("Account created! Please log in.");
+      toast.success("Account created successfully! Switching to login...");
+
+      // Wait a moment, then switch to login tab
+      await new Promise(resolve => setTimeout(resolve, 500));
+
       setSignupEmail("");
       setSignupPassword("");
       setConfirmPassword("");
       setFullName("");
       setMobileNumber("");
+      setIsLoading(false);
       setActiveTab('login');
     }
   };
