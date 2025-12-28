@@ -25,6 +25,7 @@ console.log('[Supabase] Client created successfully')
 
 // Test Supabase connectivity on app load
 if (typeof window !== 'undefined') {
+  console.log('[Supabase] Testing connectivity to:', SUPABASE_URL)
   fetch(SUPABASE_URL, { method: 'HEAD', mode: 'no-cors' })
     .then(() => console.log('[Supabase] Network connectivity: OK'))
     .catch((err) => console.warn('[Supabase] Network connectivity issue:', err.message))
