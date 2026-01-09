@@ -32,7 +32,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setSession(data.session)
 
         if (data.session?.user) {
-          await fetchUserProfile(data.session.user.id)
+          const timeoutId = setTimeout(() => {
+            console.warn('[Auth] Profile fetch timeout - user profile took too long to load')
+            setIsLoading(false)
+          }, 8000) // 8 second timeout
+
+          try {
+            await fetchUserProfile(data.session.user.id)
+          } finally {
+            clearTimeout(timeoutId)
+          }
         }
       } catch (error) {
         console.error('Error initializing auth:', error)
@@ -54,7 +63,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           // For subsequent logins, we need to manage loading state
           setIsLoading(true)
           console.log('[Auth] Session exists, fetching profile for user:', session.user.id)
-          await fetchUserProfile(session.user.id)
+
+          const timeoutId = setTimeout(() => {
+            console.warn('[Auth] Profile fetch timeout during login - user profile took too long to load')
+            setIsLoading(false)
+          }, 8000) // 8 second timeout
+
+          try {
+            await fetchUserProfile(session.user.id)
+          } finally {
+            clearTimeout(timeoutId)
+          }
         } else {
           // User logged out
           console.log('[Auth] No session, clearing user')
