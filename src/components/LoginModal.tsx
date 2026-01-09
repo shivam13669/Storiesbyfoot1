@@ -100,8 +100,8 @@ const validatePassword = (password: string) => {
 };
 
 export const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
-  const { login, signup, sendOTP } = useAuth();
-  
+  const { login, signup, sendOTP, user, isLoading: isAuthLoading } = useAuth();
+
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -126,6 +126,7 @@ export const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
   const [forgotPasswordEmailError, setForgotPasswordEmailError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [otpSent, setOtpSent] = useState(false);
+  const [loginPending, setLoginPending] = useState(false);
 
   const filteredCountries = COUNTRIES.filter(country =>
     country.name.toLowerCase().includes(countrySearch.toLowerCase()) ||
