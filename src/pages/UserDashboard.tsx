@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useAuth } from '@/context/AuthContext'
 import { supabase, Testimonial } from '@/lib/supabase'
 import { Button } from '@/components/ui/button'
@@ -19,6 +20,7 @@ import { Trash2, Plus, Edit2 } from 'lucide-react'
 import { toast } from 'sonner'
 
 export default function UserDashboard() {
+  const navigate = useNavigate()
   const { user, isLoading: isAuthLoading } = useAuth()
   const [testimonials, setTestimonials] = useState<Testimonial[]>([])
   const [isLoading, setIsLoading] = useState(true)
@@ -44,13 +46,13 @@ export default function UserDashboard() {
 
     if (!user) {
       console.log('[UserDashboard] No user authenticated, redirecting to home')
-      window.location.href = '/'
+      navigate('/', { replace: true })
       return
     }
 
     console.log('[UserDashboard] User authenticated, fetching testimonials')
     fetchTestimonials()
-  }, [user, isAuthLoading])
+  }, [user, isAuthLoading, navigate])
 
   const fetchTestimonials = async () => {
     if (!user) return
