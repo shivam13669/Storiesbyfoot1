@@ -32,7 +32,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setSession(data.session)
 
         if (data.session?.user) {
-          await fetchUserProfile(data.session.user.id)
+          const timeoutId = setTimeout(() => {
+            console.warn('[Auth] Profile fetch timeout - user profile took too long to load')
+            setIsLoading(false)
+          }, 8000) // 8 second timeout
+
+          try {
+            await fetchUserProfile(data.session.user.id)
+          } finally {
+            clearTimeout(timeoutId)
+          }
         }
       } catch (error) {
         console.error('Error initializing auth:', error)
@@ -54,7 +63,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           // For subsequent logins, we need to manage loading state
           setIsLoading(true)
           console.log('[Auth] Session exists, fetching profile for user:', session.user.id)
-          await fetchUserProfile(session.user.id)
+
+          const timeoutId = setTimeout(() => {
+            console.warn('[Auth] Profile fetch timeout during login - user profile took too long to load')
+            setIsLoading(false)
+          }, 8000) // 8 second timeout
+
+          try {
+            await fetchUserProfile(session.user.id)
+          } finally {
+            clearTimeout(timeoutId)
+          }
         } else {
           // User logged out
           console.log('[Auth] No session, clearing user')
@@ -114,7 +133,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         if (errorCode === 'PGRST116') {
           // No row found - user exists in auth but not in users table
-          // This can happen if profile creation during signup failed
           console.warn('[Auth] User profile not found in database (PGRST116). User may not have completed setup.')
           setUser(null)
           return
@@ -196,31 +214,54 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signup = async (email: string, password: string, fullName: string) => {
     try {
+      console.log('[Auth] Signup attempt for:', email)
+
       // Create auth user
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email,
         password,
       })
 
-      if (authError) return { error: authError.message }
+      if (authError) {
+        console.error('[Auth] Signup auth error:', authError.message)
+        return { error: authError.message }
+      }
 
-      if (!authData.user) return { error: 'Failed to create user' }
+      if (!authData.user) {
+        console.error('[Auth] Signup failed: no user returned')
+        return { error: 'Failed to create user' }
+      }
+
+      console.log('[Auth] Auth user created:', authData.user.id)
 
       // Create user profile
-      const { error: profileError } = await supabase.from('users').insert({
-        id: authData.user.id,
-        email,
-        fullName,
-        role: 'user',
-        isActive: true,
-        canWriteTestimonial: false, // Admin must enable
-      })
+      const { data: profileData, error: profileError } = await supabase
+        .from('users')
+        .insert({
+          id: authData.user.id,
+          email,
+          fullName,
+          role: 'user',
+          isActive: true,
+          canWriteTestimonial: false, // Admin must enable
+        })
+        .select('*')
+        .single()
 
-      if (profileError) return { error: profileError.message }
+      if (profileError) {
+        console.error('[Auth] Profile creation error:', {
+          code: profileError.code,
+          message: profileError.message,
+        })
+        return { error: `Failed to create profile: ${profileError.message}` }
+      }
 
+      console.log('[Auth] User profile created successfully:', authData.user.id)
       return { error: null }
     } catch (error) {
-      return { error: 'An unexpected error occurred' }
+      const errorMessage = error instanceof Error ? error.message : String(error)
+      console.error('[Auth] Exception during signup:', errorMessage)
+      return { error: 'An unexpected error occurred during signup' }
     }
   }
 

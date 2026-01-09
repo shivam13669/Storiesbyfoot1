@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useAuth } from '@/context/AuthContext'
 import { supabase, Testimonial } from '@/lib/supabase'
 import { Button } from '@/components/ui/button'
@@ -19,6 +20,7 @@ import { Trash2, Plus, Edit2 } from 'lucide-react'
 import { toast } from 'sonner'
 
 export default function UserDashboard() {
+  const navigate = useNavigate()
   const { user, isLoading: isAuthLoading } = useAuth()
   const [testimonials, setTestimonials] = useState<Testimonial[]>([])
   const [isLoading, setIsLoading] = useState(true)
@@ -39,35 +41,55 @@ export default function UserDashboard() {
   useEffect(() => {
     // Wait for auth to finish loading before checking user
     if (isAuthLoading) {
+      console.log('[UserDashboard] Still loading auth...')
       return
     }
+
+    console.log('[UserDashboard] Auth loading done, user:', user)
 
     if (!user) {
-      console.log('[UserDashboard] No user authenticated, redirecting to home')
-      window.location.href = '/'
+      // User is not authenticated - redirect to home
+      console.log('[UserDashboard] No user, redirecting to home')
+      navigate('/', { replace: true })
       return
     }
 
+    // User exists, fetch their testimonials
     console.log('[UserDashboard] User authenticated, fetching testimonials')
     fetchTestimonials()
-  }, [user, isAuthLoading])
+  }, [user, isAuthLoading, navigate])
 
   const fetchTestimonials = async () => {
-    if (!user) return
+    if (!user) {
+      console.warn('[Dashboard] No user found, cannot fetch testimonials')
+      setIsLoading(false)
+      return
+    }
 
     try {
-      setIsLoading(true)
+      const timeoutId = setTimeout(() => {
+        console.warn('[Dashboard] Testimonials fetch timeout')
+        setIsLoading(false)
+      }, 5000) // 5 second timeout for testimonials fetch
+
       const { data, error } = await supabase
         .from('testimonials')
         .select('*')
         .eq('userId', user.id)
         .order('createdAt', { ascending: false })
 
-      if (error) throw error
-      setTestimonials(data as Testimonial[])
+      clearTimeout(timeoutId)
+
+      if (error) {
+        console.error('[Dashboard] Error fetching testimonials:', error.message)
+        // Set empty testimonials array and continue
+        setTestimonials([])
+      } else {
+        setTestimonials((data || []) as Testimonial[])
+      }
     } catch (error) {
-      console.error('Error fetching testimonials:', error)
-      toast.error('Failed to load testimonials')
+      console.error('[Dashboard] Exception while fetching testimonials:', error)
+      setTestimonials([])
     } finally {
       setIsLoading(false)
     }
@@ -143,13 +165,38 @@ export default function UserDashboard() {
     }
   }
 
-  // Show loading state while authenticating or fetching data
-  if (isAuthLoading || isLoading) {
+  // Show loading state while authenticating
+  if (isAuthLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 pt-20">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto mb-4"></div>
-          <p className="text-gray-600">{isAuthLoading ? 'Loading authentication...' : 'Loading dashboard...'}</p>
+          <p className="text-gray-600 mb-2">Verifying your account...</p>
+          <p className="text-sm text-gray-500">Please wait</p>
+        </div>
+      </div>
+    )
+  }
+
+  // If no user after auth is done, don't show loading (ProtectedRoute will redirect)
+  if (!user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 pt-20">
+        <div className="text-center">
+          <p className="text-gray-600">Redirecting to home...</p>
+        </div>
+      </div>
+    )
+  }
+
+  // Show loading while fetching testimonials
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 pt-20">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto mb-4"></div>
+          <p className="text-gray-600 mb-2">Loading your dashboard...</p>
+          <p className="text-sm text-gray-500">Fetching your testimonials</p>
         </div>
       </div>
     )

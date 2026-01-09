@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Eye, EyeOff, Mail, Lock, ArrowRight, CheckCircle, User, Phone, Search, ChevronDown, X } from "lucide-react";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 import {
@@ -100,8 +100,8 @@ const validatePassword = (password: string) => {
 };
 
 export const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
-  const { login, signup, sendOTP } = useAuth();
-  
+  const { login, signup, sendOTP, user, isLoading: isAuthLoading } = useAuth();
+
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -126,6 +126,7 @@ export const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
   const [forgotPasswordEmailError, setForgotPasswordEmailError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [otpSent, setOtpSent] = useState(false);
+  const [loginPending, setLoginPending] = useState(false);
 
   const filteredCountries = COUNTRIES.filter(country =>
     country.name.toLowerCase().includes(countrySearch.toLowerCase()) ||
@@ -136,6 +137,26 @@ export const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
   const passwordValidation = validatePassword(signupPassword);
   const passwordsMatch = signupPassword && confirmPassword && signupPassword === confirmPassword;
   const isPasswordValid = passwordValidation.isValid && passwordsMatch;
+
+  // Watch for login success and close modal when user is loaded
+  useEffect(() => {
+    if (loginPending && user && !isAuthLoading) {
+      console.log('[LoginModal] User loaded after login, closing modal')
+      // Give a small delay for state updates
+      const timer = setTimeout(() => {
+        setLoginPending(false)
+        onClose()
+      }, 200)
+      return () => clearTimeout(timer)
+    }
+  }, [loginPending, user, isAuthLoading, onClose])
+
+  // Reset login pending flag when modal is closed externally
+  useEffect(() => {
+    if (!isOpen) {
+      setLoginPending(false)
+    }
+  }, [isOpen])
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -160,18 +181,19 @@ export const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
       setEmailError(error);
       toast.error(error);
     } else {
-      console.log('[LoginModal] Login successful! Waiting for profile to load...')
-      toast.success("Logged in successfully! Redirecting to your dashboard...");
+      console.log('[LoginModal] Login successful!')
+      toast.success("Logged in successfully! Click your profile name to access your dashboard.");
 
-      // Wait for auth context to load the user profile
-      await new Promise(resolve => setTimeout(resolve, 1500));
-
+      // Clear form fields immediately
       setEmail("");
       setPassword("");
-      onClose();
+      setEmailError("");
       setIsLoading(false);
 
-      console.log('[LoginModal] Modal closed, useAuthRedirect hook will handle dashboard redirect')
+      // Set flag so useEffect can close modal when user is loaded
+      setLoginPending(true);
+
+      console.log('[LoginModal] Login complete. Waiting for user to load...')
     }
   };
 
