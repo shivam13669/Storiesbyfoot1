@@ -165,14 +165,38 @@ export default function UserDashboard() {
     }
   }
 
-  // Show loading state while authenticating or fetching data
-  if (isAuthLoading || (isLoading && !user)) {
+  // Show loading state while authenticating
+  if (isAuthLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50 pt-20">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto mb-4"></div>
-          <p className="text-gray-600 mb-2">{isAuthLoading ? 'Verifying your account...' : 'Loading your dashboard...'}</p>
-          <p className="text-sm text-gray-500">Please wait while we set up your account</p>
+          <p className="text-gray-600 mb-2">Verifying your account...</p>
+          <p className="text-sm text-gray-500">Please wait</p>
+        </div>
+      </div>
+    )
+  }
+
+  // If no user after auth is done, don't show loading (ProtectedRoute will redirect)
+  if (!user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 pt-20">
+        <div className="text-center">
+          <p className="text-gray-600">Redirecting to home...</p>
+        </div>
+      </div>
+    )
+  }
+
+  // Show loading while fetching testimonials
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 pt-20">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto mb-4"></div>
+          <p className="text-gray-600 mb-2">Loading your dashboard...</p>
+          <p className="text-sm text-gray-500">Fetching your testimonials</p>
         </div>
       </div>
     )
