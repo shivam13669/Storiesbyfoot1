@@ -56,6 +56,7 @@ export default function UserDashboard() {
 
   const fetchTestimonials = async () => {
     if (!user) {
+      console.warn('[Dashboard] No user found, cannot fetch testimonials')
       setIsLoading(false)
       return
     }
@@ -64,7 +65,7 @@ export default function UserDashboard() {
       const timeoutId = setTimeout(() => {
         console.warn('[Dashboard] Testimonials fetch timeout')
         setIsLoading(false)
-      }, 10000) // 10 second timeout for testimonials fetch
+      }, 5000) // 5 second timeout for testimonials fetch
 
       const { data, error } = await supabase
         .from('testimonials')
@@ -75,14 +76,15 @@ export default function UserDashboard() {
       clearTimeout(timeoutId)
 
       if (error) {
-        console.error('[Dashboard] Error fetching testimonials:', error)
-        // Don't show error toast for now, just continue with empty testimonials
+        console.error('[Dashboard] Error fetching testimonials:', error.message)
+        // Set empty testimonials array and continue
         setTestimonials([])
       } else {
-        setTestimonials(data as Testimonial[])
+        setTestimonials((data || []) as Testimonial[])
       }
     } catch (error) {
       console.error('[Dashboard] Exception while fetching testimonials:', error)
+      setTestimonials([])
     } finally {
       setIsLoading(false)
     }
