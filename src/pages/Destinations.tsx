@@ -29,6 +29,13 @@ const DestinationsPage = () => {
 
   const [activeSlug, setActiveSlug] = useState(initialSlug);
 
+  const [filters, setFilters] = useState<FilterState>({
+    search: "",
+    categories: ["All"],
+    priceRange: "all",
+    rating: "all",
+  });
+
   const isShowingAll = activeSlug === "all";
   const activeDestination = useMemo(
     () => destinations.find((d) => d.slug === activeSlug) ?? destinations[0],
