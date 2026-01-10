@@ -110,7 +110,7 @@ const DestinationsPage = () => {
                   <div className="flex items-start justify-between gap-4">
                     <div>
                       <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground flex items-center gap-1">
-                        {pkg.duration} <Bike className="h-4 w-4" />
+                        {pkg.duration} 🏍️
                       </p>
                       <h3 className="mt-1 text-lg font-semibold leading-snug">{pkg.name}</h3>
                     </div>
