@@ -118,7 +118,7 @@ export const FilterSidebar = ({ filters, onFiltersChange }: FilterSidebarProps) 
           <select
             value={filters.priceRange}
             onChange={handlePriceRangeChange}
-            className="w-full h-10 px-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm"
+            className="w-full h-10 px-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm mb-4"
           >
             {PRICE_RANGES.map((price) => (
               <option key={price} value={price}>
@@ -126,6 +126,20 @@ export const FilterSidebar = ({ filters, onFiltersChange }: FilterSidebarProps) 
               </option>
             ))}
           </select>
+
+          <div className="mt-4">
+            <label className="block text-xs font-medium text-muted-foreground mb-3">
+              Custom Range: ₹{filters.minPrice.toLocaleString()} - ₹{filters.maxPrice.toLocaleString()}
+            </label>
+            <Slider
+              min={MIN_PRICE}
+              max={MAX_PRICE}
+              step={1000}
+              value={[filters.minPrice, filters.maxPrice]}
+              onValueChange={handlePriceSliderChange}
+              className="w-full"
+            />
+          </div>
         </div>
 
         {/* Rating Filter */}
