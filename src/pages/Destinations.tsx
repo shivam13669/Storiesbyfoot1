@@ -33,6 +33,8 @@ const DestinationsPage = () => {
     search: "",
     category: "All",
     priceRange: "All",
+    minPrice: 0,
+    maxPrice: 100000,
     rating: "All",
   });
 
