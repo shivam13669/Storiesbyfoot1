@@ -64,10 +64,10 @@ const DestinationsPage = () => {
       }
 
       // Category filter
-      const hasCategory = filters.categories.includes("All") ||
-        (pkg.categories && pkg.categories.some(cat => filters.categories.includes(cat)));
-      if (!hasCategory && filters.categories.length > 0 && !filters.categories.includes("All")) {
-        return false;
+      if (filters.category !== "All" && pkg.categories) {
+        if (!pkg.categories.includes(filters.category)) {
+          return false;
+        }
       }
 
       // Price range filter
