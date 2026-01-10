@@ -150,7 +150,7 @@ const DestinationsPage = () => {
 
             {/* Packages grid */}
             <div className="flex-1 min-w-0">
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid gap-6 lg:grid-cols-2">
                 {displayPackages.map((pkg) => (
                   <Card
                     key={`${pkg.destinationSlug}-${pkg.slug}`}
