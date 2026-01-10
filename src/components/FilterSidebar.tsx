@@ -47,7 +47,7 @@ export const FilterSidebar = ({ filters, onFiltersChange }: FilterSidebarProps) 
   };
 
   return (
-    <div className="lg:col-span-1">
+    <div className="w-full lg:w-72">
       <div className="bg-white rounded-xl shadow-md p-6 sticky top-24">
         <h3 className="flex items-center gap-2 text-lg font-bold text-foreground mb-6">
           <Filter className="w-5 h-5" />
