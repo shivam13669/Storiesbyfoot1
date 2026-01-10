@@ -145,12 +145,14 @@ const DestinationsPage = () => {
 
         {/* Filters and Packages Container */}
         <section className="container mx-auto px-4 mt-8">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="flex gap-6">
             {/* Sidebar */}
-            <FilterSidebar filters={filters} onFiltersChange={setFilters} />
+            <div className="hidden lg:block w-72 flex-shrink-0">
+              <FilterSidebar filters={filters} onFiltersChange={setFilters} />
+            </div>
 
             {/* Packages grid */}
-            <div className="lg:col-span-2">
+            <div className="flex-1 min-w-0">
               <p className="text-sm text-muted-foreground mb-4">Showing {displayPackages.length} destination{displayPackages.length !== 1 ? 's' : ''}</p>
               <div className="grid gap-6 sm:grid-cols-2">
                 {displayPackages.map((pkg) => (
