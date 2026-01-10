@@ -5,7 +5,7 @@ import Navigation from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { destinationIconMap, destinations } from "@/data/destinations";
-import { ArrowRight, Bike, Calendar, MapPin, MapPinned, Star } from "lucide-react";
+import { ArrowRight, Calendar, MapPin, MapPinned, Star } from "lucide-react";
 import { useCurrency } from "@/context/CurrencyContext";
 import { parseINRStringToNumber } from "@/lib/currency";
 
