@@ -109,7 +109,9 @@ const DestinationsPage = () => {
                 <CardContent className="p-6">
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{pkg.duration}</p>
+                      <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground flex items-center gap-1">
+                        <Bike className="h-4 w-4" /> {pkg.duration}
+                      </p>
                       <h3 className="mt-1 text-lg font-semibold leading-snug">{pkg.name}</h3>
                     </div>
                     <div className="hidden sm:flex items-center gap-1 rounded-full bg-emerald-100 px-2 py-1 text-xs font-semibold text-emerald-700">
