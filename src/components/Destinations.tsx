@@ -31,63 +31,65 @@ const Destinations = () => {
               : `/destinations/${destination.slug}`;
 
             return (
-              <Card
+              <Link
                 key={destination.slug}
-                className="group overflow-hidden border-0 shadow-card hover:shadow-adventure transition-all duration-500 hover:-translate-y-2 bg-card/80 backdrop-blur-sm"
-                style={{ animationDelay: `${index * 0.2}s` }}
+                to={`/destinations?destination=${destination.slug}`}
+                className="block group"
               >
-                <div className="relative overflow-hidden">
-                  <img
-                    src={displayImage}
-                    alt={destination.name}
-                    className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
-                  {primaryPackage?.badge && (
-                    <div className="absolute top-4 left-4 bg-primary text-primary-foreground px-3 py-1 rounded-full text-xs font-semibold uppercase">
-                      {primaryPackage.badge}
-                    </div>
-                  )}
-                  <div className="absolute bottom-4 left-4 bg-secondary/90 backdrop-blur-sm text-secondary-foreground px-3 py-1 rounded-full font-semibold">
-                    {primaryPackage?.price ? (
-                      <>Starting at {formatFromINR(parseINRStringToNumber(primaryPackage.price) ?? 0)}</>
-                    ) : (
-                      <>On request</>
-                    )}
-                  </div>
-                </div>
-
-                <CardContent className="p-6">
-                  <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
-                    {destination.name}
-                  </h3>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    {destination.tagline}
-                  </p>
-
-                  <div className="flex items-center gap-4 mb-4 text-muted-foreground text-sm">
-                    <div className="flex items-center gap-1">
-                      <MapPin className="h-4 w-4" />
-                      {destination.region}
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <Calendar className="h-4 w-4" />
-                      {destination.quickFacts.bestTime}
-                    </div>
-                    {primaryPackage && (
-                      <div className="flex items-center gap-1">
-                        <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                        {primaryPackage.rating}
+                <Card className="h-full overflow-hidden border-0 shadow-card hover:shadow-adventure transition-all duration-500 hover:-translate-y-2 bg-card/80 backdrop-blur-sm cursor-pointer">
+                  <div className="relative overflow-hidden">
+                    <img
+                      src={displayImage}
+                      alt={destination.name}
+                      className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                    {primaryPackage?.badge && (
+                      <div className="absolute top-4 left-4 bg-primary text-primary-foreground px-3 py-1 rounded-full text-xs font-semibold uppercase">
+                        {primaryPackage.badge}
                       </div>
                     )}
+                    <div className="absolute bottom-4 left-4 bg-secondary/90 backdrop-blur-sm text-secondary-foreground px-3 py-1 rounded-full font-semibold">
+                      {primaryPackage?.price ? (
+                        <>Starting at {formatFromINR(parseINRStringToNumber(primaryPackage.price) ?? 0)}</>
+                      ) : (
+                        <>On request</>
+                      )}
+                    </div>
                   </div>
 
-                  <Button asChild className="w-full group" variant="adventure">
-                    <Link to={detailPath} className="inline-flex items-center justify-center">
-                      View experiences
-                    </Link>
-                  </Button>
-                </CardContent>
-              </Card>
+                  <CardContent className="p-6">
+                    <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
+                      {destination.name}
+                    </h3>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      {destination.tagline}
+                    </p>
+
+                    <div className="flex items-center gap-4 mb-4 text-muted-foreground text-sm">
+                      <div className="flex items-center gap-1">
+                        <MapPin className="h-4 w-4" />
+                        {destination.region}
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Calendar className="h-4 w-4" />
+                        {destination.quickFacts.bestTime}
+                      </div>
+                      {primaryPackage && (
+                        <div className="flex items-center gap-1">
+                          <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                          {primaryPackage.rating}
+                        </div>
+                      )}
+                    </div>
+
+                    <Button className="w-full group" variant="adventure" asChild>
+                      <span className="inline-flex items-center justify-center">
+                        View experiences
+                      </span>
+                    </Button>
+                  </CardContent>
+                </Card>
+              </Link>
             );
           })}
         </div>
