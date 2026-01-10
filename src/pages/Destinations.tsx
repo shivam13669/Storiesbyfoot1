@@ -146,7 +146,7 @@ const DestinationsPage = () => {
         {/* Filters and Packages Container */}
         <section className="container mx-auto px-4 mt-8">
           <div className="flex gap-6">
-            {/* Sidebar */}
+            {/* Sidebar - Hidden on mobile */}
             <div className="hidden lg:block w-72 flex-shrink-0">
               <FilterSidebar filters={filters} onFiltersChange={setFilters} />
             </div>
